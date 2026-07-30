@@ -5,11 +5,11 @@
     <style>
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             padding: 20px;
         }
@@ -20,18 +20,28 @@
             max-width: 500px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.02);
         }
         h1 {
             color: #764ba2;
             font-size: 36px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-top: -5px;
+            margin-bottom: 20px;
         }
         p {
             color: #333;
             font-size: 18px;
             line-height: 1.6;
         }
-        img {
+        .avatar {
             border-radius: 50%;
             width: 150px;
             height: 150px;
@@ -39,15 +49,57 @@
             border: 5px solid #667eea;
             margin-top: 10px;
         }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(118, 75, 162, 0.4);
+        }
+        .footer {
+            font-size: 14px;
+            color: #888;
+            margin-top: 25px;
+        }
+        .hobby {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 6px 15px;
+            border-radius: 20px;
+            margin: 4px;
+            font-size: 14px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>🌟 Привет, мир!</h1>
+        <p class="subtitle">Добро пожаловать на мой первый сайт</p>
         <p>Меня зовут <strong>Иван Паранин</strong>. Это мой первый сайт.</p>
         <p>Я учусь создавать сайты с нуля!</p>
-        <img src="https://via.placeholder.com/300" alt="Моя картинка">
-        <p style="font-size: 14px; color: #888; margin-top: 20px;">Сделано с ❤️</p>
+        
+        <img class="avatar" src="https://via.placeholder.com/300" alt="Моя картинка">
+        
+        <div style="margin-top: 15px;">
+            <span class="hobby">💻 Программирование</span>
+            <span class="hobby">⚽ Люблю свою жену Оксану</span>
+            <span class="hobby">📚 Люблю своих детей Михаила и Илью</span>
+        </div>
+        
+        <a href="#" class="btn">📩 Написать мне</a>
+        
+        <div class="footer">
+            Сделано с ❤️ | 2026
+        </div>
     </div>
 </body>
 </html>
