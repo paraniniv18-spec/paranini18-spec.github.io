@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Иван Паранин ❤️</title>
     <style>
+        /* ---------- Базовые настройки ---------- */
         * {
             margin: 0;
             padding: 0;
@@ -14,64 +15,61 @@
         body {
             font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            padding: 30px 20px;
             background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
-            overflow: hidden;
+            /* Включаем скролл */
+            overflow-y: auto;
             position: relative;
         }
 
-        /* Контейнер для анимированных сердечек */
+        /* ---------- ФОН С АНИМИРОВАННЫМИ СЕРДЕЧКАМИ ---------- */
         .hearts-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
+            pointer-events: none; /* Чтобы не мешали кликать по кнопке */
             z-index: 0;
             overflow: hidden;
         }
 
-        /* Стиль для каждого сердечка */
         .heart {
             position: absolute;
             bottom: -100px;
             font-size: 20px;
-            color: rgba(255, 80, 80, 0.4);
+            color: rgba(255, 80, 80, 0.35);
             animation: floatHeart linear infinite;
             user-select: none;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.15);
         }
 
-        /* Анимация подъёма и покачивания */
         @keyframes floatHeart {
             0% {
                 transform: translateY(0) rotate(0deg) scale(0.8);
-                opacity: 0.2;
+                opacity: 0.15;
             }
             10% {
-                opacity: 0.8;
+                opacity: 0.7;
             }
             90% {
-                opacity: 0.8;
+                opacity: 0.7;
             }
             100% {
-                transform: translateY(-110vh) rotate(720deg) scale(1.2);
+                transform: translateY(-110vh) rotate(720deg) scale(1.3);
                 opacity: 0;
             }
         }
 
-        /* Основная карточка */
+        /* ---------- КАРТОЧКА (основной блок) ---------- */
         .card {
             max-width: 750px;
+            margin: 20px auto; /* Центрирование + отступы для скролла */
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(10px);
             border-radius: 32px;
             padding: 40px 35px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
             position: relative;
             z-index: 1;
             transition: transform 0.3s ease;
@@ -79,7 +77,7 @@
         }
 
         .card:hover {
-            transform: translateY(-5px) scale(1.01);
+            transform: translateY(-5px) scale(1.005);
         }
 
         h1 {
@@ -87,6 +85,7 @@
             margin-bottom: 5px;
             color: #1a2634;
         }
+
         .subhead {
             color: #4a5b6e;
             font-size: 1.1rem;
@@ -94,6 +93,7 @@
             padding-bottom: 20px;
             margin-bottom: 25px;
         }
+
         .message {
             background: rgba(248, 250, 255, 0.7);
             padding: 25px 30px;
@@ -105,6 +105,7 @@
             margin: 25px 0;
             white-space: pre-wrap;
         }
+
         .footer-note {
             margin-top: 30px;
             padding: 18px 25px;
@@ -114,21 +115,87 @@
             font-weight: 500;
             color: #2c3e50;
         }
+
         .emoji-big {
             font-size: 2rem;
             display: block;
             margin-bottom: 5px;
         }
+
+        /* ---------- КНОПКА И СЕКРЕТНЫЙ БЛОК ---------- */
+        .secret-btn {
+            margin-top: 20px;
+            padding: 14px 40px;
+            border: none;
+            background: #c44569;
+            color: white;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(196, 69, 105, 0.3);
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        .secret-btn:hover {
+            background: #a83556;
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(196, 69, 105, 0.4);
+        }
+
+        .secret-btn:active {
+            transform: scale(0.95);
+        }
+
+        #secret {
+            display: none;
+            margin-top: 25px;
+            padding: 25px 30px;
+            background: rgba(255, 240, 243, 0.9);
+            border-radius: 24px;
+            color: #8a2e4a;
+            font-size: 1.1rem;
+            border: 2px dashed #c44569;
+            transition: all 0.5s ease;
+            text-align: center;
+        }
+
+        #secret.show {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---------- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ ---------- */
         @media (max-width: 500px) {
-            .card { padding: 25px 20px; }
-            h1 { font-size: 1.8rem; }
+            .card {
+                padding: 25px 20px;
+                margin: 10px auto;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .secret-btn {
+                width: 100%;
+                text-align: center;
+                font-size: 1rem;
+                padding: 14px 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Контейнер для сердечек -->
+
+    <!-- КОНТЕЙНЕР ДЛЯ АНИМИРОВАННЫХ СЕРДЕЧЕК -->
     <div class="hearts-container" id="heartsContainer"></div>
 
+    <!-- ОСНОВНАЯ КАРТОЧКА -->
     <div class="card">
         <h1>🌟 Привет, мир!</h1>
         <div class="subhead">Меня зовут Иван Паранин. Это мой первый сайт.</div>
@@ -143,27 +210,39 @@
         <div class="footer-note">
             📩 Позвони мне после работы, когда приедешь в город! Буду очень ждать твоего звонка.
         </div>
-        <p style="text-align:right; margin-top:20px; color:#7a8a9e; font-size:0.9rem;">❤️ Твой Иван</p>
+
+        <p style="text-align:right; margin-top:20px; color:#7a8a9e; font-size:0.9rem;">❤️ Ваш Иван</p>
+
+        <!-- КНОПКА И СЕКРЕТ -->
+        <div style="text-align: center; margin-top: 10px;">
+            <button class="secret-btn" onclick="toggleSecret()">❤️ Нажми меня</button>
+        </div>
+
+        <div id="secret">
+            🌹 Ты — моё вдохновение! <br>
+            Этот сайт сделан с огромной любовью ❤️
+        </div>
     </div>
 
+    <!-- JavaScript для сердечек и кнопки -->
     <script>
-        // Генерация плавающих сердечек
+        // ---------- 1. ГЕНЕРАЦИЯ АНИМИРОВАННЫХ СЕРДЕЧЕК ----------
         function createHearts() {
             const container = document.getElementById('heartsContainer');
             const heartSymbols = ['❤️', '💕', '💖', '💗', '💘', '❤️‍🔥', '💝'];
-            const numHearts = 35; // Количество сердечек
+            const numHearts = 40; // Количество сердечек
 
             for (let i = 0; i < numHearts; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-                
-                // Случайные параметры
-                const size = 18 + Math.random() * 42; // Размер от 18 до 60px
-                const left = Math.random() * 100; // Позиция по ширине
-                const duration = 12 + Math.random() * 18; // Длительность анимации (12-30с)
-                const delay = Math.random() * 15; // Задержка старта
-                const opacity = 0.2 + Math.random() * 0.4; // Прозрачность
+
+                // Случайные размеры, позиции, скорость
+                const size = 18 + Math.random() * 45;
+                const left = Math.random() * 100;
+                const duration = 12 + Math.random() * 20;
+                const delay = Math.random() * 15;
+                const opacity = 0.2 + Math.random() * 0.4;
 
                 heart.style.fontSize = size + 'px';
                 heart.style.left = left + '%';
@@ -176,8 +255,22 @@
             }
         }
 
-        // Запускаем создание сердечек после загрузки страницы
+        // ---------- 2. КНОПКА "НАЖМИ МЕНЯ" ----------
+        function toggleSecret() {
+            const secretBlock = document.getElementById('secret');
+            // Переключаем класс show
+            secretBlock.classList.toggle('show');
+            // Если появился — скроллим к нему плавно
+            if (secretBlock.classList.contains('show')) {
+                setTimeout(() => {
+                    secretBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
+
+        // Запускаем создание сердечек после загрузки
         window.onload = createHearts;
     </script>
+
 </body>
 </html>
