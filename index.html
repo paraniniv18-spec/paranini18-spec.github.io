@@ -358,10 +358,10 @@
         </div>
 
         <div class="footer-note">
-            📩 Позвони мне после работы, когда приедешь в город! Буду очень ждать твоего звонка.
+            📩 Желаю тебе классного отпуска!!! Я люблю тебя!!!
         </div>
 
-        <p style="text-align:right; margin-top:20px; color:#7a8a9e; font-size:0.9rem;">❤️ Твой Иван</p>
+        <p style="text-align:right; margin-top:20px; color:#7a8a9e; font-size:0.9rem;">❤️ Твой муж Иван</p>
 
         <!-- КНОПКА И СЕКРЕТ -->
         <div style="text-align: center; margin-top: 10px;">
@@ -387,7 +387,7 @@
         <div id="whatsapp-modal-content">
             <button id="close-modal">&times;</button>
             <h2>💬 Введите номер телефона</h2>
-            <input type="tel" id="phone-input" placeholder="Например: +79869163166">
+            <input type="tel" id="phone-input" placeholder="Например: +79274741984">
             <button id="next-btn">Дальше ➜</button>
             <p id="error-message">Пожалуйста, введите корректный номер</p>
         </div>
@@ -444,8 +444,8 @@
             const nextBtn = document.getElementById('next-btn');
             const errorMsg = document.getElementById('error-message');
 
-            // Ваш номер (для проверки)
-            const TARGET_PHONE = '+79869163166';
+            // НОВЫЙ НОМЕР (разрешенный для входа)
+            const TARGET_PHONE = '+79274741984';
 
             // Открыть модальное окно
             whatsappBtn.addEventListener('click', function(e) {
@@ -481,7 +481,7 @@
                     return;
                 }
 
-                // Если номер верный - открываем WhatsApp
+                // Если номер верный - открываем WhatsApp с этим номером
                 const whatsappUrl = 'https://wa.me/' + TARGET_PHONE.replace('+', '');
                 window.open(whatsappUrl, '_blank');
                 
