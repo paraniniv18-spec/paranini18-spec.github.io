@@ -17,7 +17,6 @@
             min-height: 100vh;
             padding: 30px 20px;
             background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
-            /* Включаем скролл */
             overflow-y: auto;
             position: relative;
         }
@@ -29,7 +28,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Чтобы не мешали кликать по кнопке */
+            pointer-events: none;
             z-index: 0;
             overflow: hidden;
         }
@@ -64,7 +63,7 @@
         /* ---------- КАРТОЧКА (основной блок) ---------- */
         .card {
             max-width: 750px;
-            margin: 20px auto; /* Центрирование + отступы для скролла */
+            margin: 20px auto;
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(10px);
             border-radius: 32px;
@@ -172,17 +171,50 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* ========== НОВЫЕ СТИЛИ ДЛЯ WHATSAPP ========== */
-        /* Кнопка WhatsApp */
-        #whatsapp-container {
+        /* ========== СТИЛИ ДЛЯ КНОПОК МАХ И WHATSAPP ========== */
+        /* Контейнер для обеих кнопок */
+        .floating-buttons {
             position: fixed;
             bottom: 30px;
             right: 30px;
             z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
         }
 
+        /* Кнопка МАХ */
+        #max-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: #ff6b00;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 20px;
+            font-weight: 900;
+            font-family: 'Segoe UI', sans-serif;
+            letter-spacing: -0.5px;
+        }
+
+        #max-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+        }
+
+        /* Кнопка WhatsApp */
         #whatsapp-btn {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 60px;
             height: 60px;
             background-color: #25d366;
@@ -190,9 +222,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.25);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             border: none;
             cursor: pointer;
         }
@@ -208,8 +237,8 @@
             display: block;
         }
 
-        /* Модальное окно */
-        #whatsapp-modal {
+        /* Модальное окно (общее для обеих кнопок) */
+        .app-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -222,7 +251,7 @@
             z-index: 10000;
         }
 
-        #whatsapp-modal-content {
+        .app-modal-content {
             background-color: #fff;
             padding: 30px 35px;
             border-radius: 16px;
@@ -239,7 +268,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        #close-modal {
+        .close-modal {
             position: absolute;
             top: 12px;
             right: 18px;
@@ -252,18 +281,24 @@
             border: none;
         }
 
-        #close-modal:hover {
+        .close-modal:hover {
             color: #333;
         }
 
-        #whatsapp-modal-content h2 {
+        .app-modal-content h2 {
             margin-top: 0;
             margin-bottom: 20px;
             color: #333;
             font-size: 22px;
         }
 
-        #phone-input {
+        .app-modal-content .app-icon {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .phone-input {
             width: 100%;
             padding: 12px 15px;
             font-size: 18px;
@@ -274,13 +309,12 @@
             transition: border-color 0.2s;
         }
 
-        #phone-input:focus {
+        .phone-input:focus {
             border-color: #25d366;
             outline: none;
         }
 
-        #next-btn {
-            background-color: #25d366;
+        .next-btn {
             color: white;
             border: none;
             padding: 12px 30px;
@@ -292,11 +326,21 @@
             width: 100%;
         }
 
-        #next-btn:hover {
+        .next-btn-wa {
+            background-color: #25d366;
+        }
+        .next-btn-wa:hover {
             background-color: #1ebc5c;
         }
 
-        #error-message {
+        .next-btn-max {
+            background-color: #ff6b00;
+        }
+        .next-btn-max:hover {
+            background-color: #e05f00;
+        }
+
+        .error-message {
             margin-top: 12px;
             font-size: 14px;
             color: #e74c3c;
@@ -305,10 +349,12 @@
 
         /* Адаптив для мобильных */
         @media (max-width: 480px) {
-            #whatsapp-container {
+            .floating-buttons {
                 bottom: 20px;
                 right: 20px;
+                gap: 10px;
             }
+            #max-btn,
             #whatsapp-btn {
                 width: 54px;
                 height: 54px;
@@ -317,7 +363,10 @@
                 width: 30px;
                 height: 30px;
             }
-            #whatsapp-modal-content {
+            #max-btn {
+                font-size: 17px;
+            }
+            .app-modal-content {
                 padding: 25px 20px;
             }
         }
@@ -374,22 +423,26 @@
         </div>
     </div>
 
-    <!-- ========== НОВЫЙ БЛОК WHATSAPP ========== -->
-    <!-- Кнопка WhatsApp -->
-    <div id="whatsapp-container">
+    <!-- ========== ПЛАВАЮЩИЕ КНОПКИ ========== -->
+    <div class="floating-buttons">
+        <!-- Кнопка МАХ (теперь сверху) -->
+        <button id="max-btn" title="Открыть в МАХ">МАХ</button>
+        
+        <!-- Кнопка WhatsApp -->
         <button id="whatsapp-btn" title="Написать в WhatsApp">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
         </button>
     </div>
 
-    <!-- Модальное окно WhatsApp -->
-    <div id="whatsapp-modal">
-        <div id="whatsapp-modal-content">
-            <button id="close-modal">&times;</button>
-            <h2>💬 Введите номер телефона</h2>
-            <input type="tel" id="phone-input" placeholder="Например: +79274741984">
-            <button id="next-btn">Дальше ➜</button>
-            <p id="error-message">Пожалуйста, введите корректный номер</p>
+    <!-- ========== МОДАЛЬНОЕ ОКНО (ОБЩЕЕ) ========== -->
+    <div id="app-modal" class="app-modal">
+        <div id="app-modal-content" class="app-modal-content">
+            <button class="close-modal" id="close-modal">&times;</button>
+            <span id="modal-app-icon" class="app-icon">💬</span>
+            <h2 id="modal-title">Введите номер телефона</h2>
+            <input type="tel" id="phone-input" class="phone-input" placeholder="Например: +79274741984">
+            <button id="next-btn" class="next-btn next-btn-wa">Дальше ➜</button>
+            <p id="error-message" class="error-message">Пожалуйста, введите корректный номер</p>
         </div>
     </div>
 
@@ -434,32 +487,65 @@
             }
         }
 
-        // ---------- 3. WHATSAPP ЛОГИКА ----------
+        // ---------- 3. ЛОГИКА ДЛЯ КНОПОК МАХ И WHATSAPP ----------
         document.addEventListener('DOMContentLoaded', function() {
-            // Получаем элементы
+            // Элементы
+            const maxBtn = document.getElementById('max-btn');
             const whatsappBtn = document.getElementById('whatsapp-btn');
-            const modal = document.getElementById('whatsapp-modal');
+            const modal = document.getElementById('app-modal');
+            const modalContent = document.getElementById('app-modal-content');
             const closeBtn = document.getElementById('close-modal');
             const phoneInput = document.getElementById('phone-input');
             const nextBtn = document.getElementById('next-btn');
             const errorMsg = document.getElementById('error-message');
+            const modalTitle = document.getElementById('modal-title');
+            const modalIcon = document.getElementById('modal-app-icon');
 
-            // НОВЫЙ НОМЕР (разрешенный для входа)
+            // Номер для проверки
             const TARGET_PHONE = '+79274741984';
 
-            // Открыть модальное окно
-            whatsappBtn.addEventListener('click', function(e) {
-                e.preventDefault();
+            // Переменная для хранения текущего выбранного приложения
+            let currentApp = 'whatsapp'; // 'whatsapp' или 'max'
+
+            // Функция открытия модального окна
+            function openModal(app) {
+                currentApp = app;
                 modal.style.display = 'flex';
                 phoneInput.value = '';
                 errorMsg.style.display = 'none';
+                
+                // Настройка внешнего вида модального окна под приложение
+                if (app === 'whatsapp') {
+                    modalIcon.textContent = '💬';
+                    modalTitle.textContent = 'Введите номер для WhatsApp';
+                    nextBtn.className = 'next-btn next-btn-wa';
+                    nextBtn.textContent = 'Открыть WhatsApp ➜';
+                } else if (app === 'max') {
+                    modalIcon.textContent = '📱';
+                    modalTitle.textContent = 'Введите номер для МАХ';
+                    nextBtn.className = 'next-btn next-btn-max';
+                    nextBtn.textContent = 'Открыть МАХ ➜';
+                }
+                
                 setTimeout(() => phoneInput.focus(), 100);
-            });
+            }
 
             // Закрыть модальное окно
             function closeModal() {
                 modal.style.display = 'none';
             }
+
+            // Обработчики для кнопок
+            maxBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal('max');
+            });
+
+            whatsappBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal('whatsapp');
+            });
+
             closeBtn.addEventListener('click', closeModal);
             window.addEventListener('click', function(e) {
                 if (e.target === modal) closeModal();
@@ -481,11 +567,16 @@
                     return;
                 }
 
-                // Если номер верный - открываем WhatsApp с этим номером
-                const whatsappUrl = 'https://wa.me/' + TARGET_PHONE.replace('+', '');
-                window.open(whatsappUrl, '_blank');
+                // Если номер верный - открываем нужное приложение
+                let url;
+                if (currentApp === 'whatsapp') {
+                    url = 'https://wa.me/' + TARGET_PHONE.replace('+', '');
+                } else if (currentApp === 'max') {
+                    // Ссылка на приложение МАХ (можно заменить на актуальную)
+                    url = 'https://max.ru/';
+                }
                 
-                // Закрываем модальное окно
+                window.open(url, '_blank');
                 closeModal();
             });
 
