@@ -172,6 +172,156 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
+        /* ========== НОВЫЕ СТИЛИ ДЛЯ WHATSAPP ========== */
+        /* Кнопка WhatsApp */
+        #whatsapp-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+        }
+
+        #whatsapp-btn {
+            display: block;
+            width: 60px;
+            height: 60px;
+            background-color: #25d366;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        #whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+        }
+
+        #whatsapp-btn img {
+            width: 35px;
+            height: 35px;
+            display: block;
+        }
+
+        /* Модальное окно */
+        #whatsapp-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        #whatsapp-modal-content {
+            background-color: #fff;
+            padding: 30px 35px;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #close-modal {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #888;
+            cursor: pointer;
+            line-height: 1;
+            background: none;
+            border: none;
+        }
+
+        #close-modal:hover {
+            color: #333;
+        }
+
+        #whatsapp-modal-content h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 22px;
+        }
+
+        #phone-input {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 18px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            margin-bottom: 18px;
+            transition: border-color 0.2s;
+        }
+
+        #phone-input:focus {
+            border-color: #25d366;
+            outline: none;
+        }
+
+        #next-btn {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            width: 100%;
+        }
+
+        #next-btn:hover {
+            background-color: #1ebc5c;
+        }
+
+        #error-message {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #e74c3c;
+            display: none;
+        }
+
+        /* Адаптив для мобильных */
+        @media (max-width: 480px) {
+            #whatsapp-container {
+                bottom: 20px;
+                right: 20px;
+            }
+            #whatsapp-btn {
+                width: 54px;
+                height: 54px;
+            }
+            #whatsapp-btn img {
+                width: 30px;
+                height: 30px;
+            }
+            #whatsapp-modal-content {
+                padding: 25px 20px;
+            }
+        }
+
         /* ---------- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ ---------- */
         @media (max-width: 500px) {
             .card {
@@ -224,20 +374,38 @@
         </div>
     </div>
 
-    <!-- JavaScript для сердечек и кнопки -->
+    <!-- ========== НОВЫЙ БЛОК WHATSAPP ========== -->
+    <!-- Кнопка WhatsApp -->
+    <div id="whatsapp-container">
+        <button id="whatsapp-btn" title="Написать в WhatsApp">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        </button>
+    </div>
+
+    <!-- Модальное окно WhatsApp -->
+    <div id="whatsapp-modal">
+        <div id="whatsapp-modal-content">
+            <button id="close-modal">&times;</button>
+            <h2>💬 Введите номер телефона</h2>
+            <input type="tel" id="phone-input" placeholder="Например: +79869163166">
+            <button id="next-btn">Дальше ➜</button>
+            <p id="error-message">Пожалуйста, введите корректный номер</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
     <script>
         // ---------- 1. ГЕНЕРАЦИЯ АНИМИРОВАННЫХ СЕРДЕЧЕК ----------
         function createHearts() {
             const container = document.getElementById('heartsContainer');
             const heartSymbols = ['❤️', '💕', '💖', '💗', '💘', '❤️‍🔥', '💝'];
-            const numHearts = 40; // Количество сердечек
+            const numHearts = 40;
 
             for (let i = 0; i < numHearts; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
 
-                // Случайные размеры, позиции, скорость
                 const size = 18 + Math.random() * 45;
                 const left = Math.random() * 100;
                 const duration = 12 + Math.random() * 20;
@@ -258,15 +426,76 @@
         // ---------- 2. КНОПКА "НАЖМИ МЕНЯ" ----------
         function toggleSecret() {
             const secretBlock = document.getElementById('secret');
-            // Переключаем класс show
             secretBlock.classList.toggle('show');
-            // Если появился — скроллим к нему плавно
             if (secretBlock.classList.contains('show')) {
                 setTimeout(() => {
                     secretBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 100);
             }
         }
+
+        // ---------- 3. WHATSAPP ЛОГИКА ----------
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем элементы
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            const modal = document.getElementById('whatsapp-modal');
+            const closeBtn = document.getElementById('close-modal');
+            const phoneInput = document.getElementById('phone-input');
+            const nextBtn = document.getElementById('next-btn');
+            const errorMsg = document.getElementById('error-message');
+
+            // Ваш номер (для проверки)
+            const TARGET_PHONE = '+79869163166';
+
+            // Открыть модальное окно
+            whatsappBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.style.display = 'flex';
+                phoneInput.value = '';
+                errorMsg.style.display = 'none';
+                setTimeout(() => phoneInput.focus(), 100);
+            });
+
+            // Закрыть модальное окно
+            function closeModal() {
+                modal.style.display = 'none';
+            }
+            closeBtn.addEventListener('click', closeModal);
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) closeModal();
+            });
+
+            // Обработка кнопки "Дальше"
+            nextBtn.addEventListener('click', function() {
+                const phone = phoneInput.value.trim();
+                
+                if (phone === '') {
+                    errorMsg.textContent = '⚠️ Пожалуйста, введите номер телефона';
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+                
+                if (phone !== TARGET_PHONE) {
+                    errorMsg.textContent = '❌ Введен неверный номер. Попробуйте снова.';
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+
+                // Если номер верный - открываем WhatsApp
+                const whatsappUrl = 'https://wa.me/' + TARGET_PHONE.replace('+', '');
+                window.open(whatsappUrl, '_blank');
+                
+                // Закрываем модальное окно
+                closeModal();
+            });
+
+            // Нажатие Enter в поле ввода
+            phoneInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    nextBtn.click();
+                }
+            });
+        });
 
         // Запускаем создание сердечек после загрузки
         window.onload = createHearts;
