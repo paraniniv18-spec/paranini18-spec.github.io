@@ -93,6 +93,18 @@
             margin-bottom: 25px;
         }
 
+        /* ---------- СТИЛИ ДЛЯ КАРТИНКИ КРЕМЛЯ ---------- */
+        .kremlin-image {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 15px 0 25px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            display: block;
+        }
+
         .message {
             background: rgba(248, 250, 255, 0.7);
             padding: 25px 30px;
@@ -113,6 +125,7 @@
             text-align: center;
             font-weight: 500;
             color: #2c3e50;
+            font-size: 1.1rem;
         }
 
         .emoji-big {
@@ -198,10 +211,12 @@
             border: none;
             cursor: pointer;
             color: white;
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 900;
             font-family: 'Segoe UI', sans-serif;
             letter-spacing: -0.5px;
+            text-align: center;
+            line-height: 1.1;
         }
 
         #max-btn:hover {
@@ -481,7 +496,7 @@
                 height: 30px;
             }
             #max-btn {
-                font-size: 17px;
+                font-size: 14px;
             }
             .app-modal-content {
                 padding: 25px 20px;
@@ -497,6 +512,9 @@
             }
             .max-day h2 {
                 font-size: 1.2rem;
+            }
+            .kremlin-image {
+                max-height: 200px;
             }
         }
 
@@ -529,16 +547,16 @@
 
         <p style="font-size:1.1rem; margin-bottom:5px;">📚 Я учусь создавать сайты с нуля!</p>
 
-        <div class="message">
-            <span class="emoji-big">💌</span>
-            Дорогая Оксана! Я пишу эти слова не для того, чтобы что-то исправить, а для того, чтобы ты знала правду: Ты — самая важная женщина в моей жизни. И я очень прошу у тебя прощения. Я хочу идти с тобой по жизни до конца — каждый день, каждую минуту. Ты красивая, нежная, добрая. И наши дети — лучшее доказательство того, какой светлой может быть любовь. Знай: я ценю всё, что ты для меня сделала. Спасибо, что не отвернулась, когда было тяжело. Ты у меня одна. Я тебя очень сильно люблю!!!
-        </div>
+        <!-- КАРТИНКА МОСКОВСКОГО КРЕМЛЯ -->
+        <img class="kremlin-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Moscow_Kremlin_from_Patriarch%27s_Bridge_%28cropped%29.jpg/1280px-Moscow_Kremlin_from_Patriarch%27s_Bridge_%28cropped%29.jpg" alt="Московский Кремль">
+
+        <!-- ТЕКСТ УДАЛЁН, ТОЛЬКО КАРТИНКА -->
 
         <div class="footer-note">
-            📩 Желаю тебе классного отпуска!!! Я люблю тебя!!!
+            📩 Желаю вам классного и позитивного отпуска! Я люблю вас!!!
         </div>
 
-        <p style="text-align:right; margin-top:20px; color:#7a8a9e; font-size:0.9rem;">❤️ Твой муж Иван</p>
+        <p style="text-align:right; margin-top:20px; color:#7a8a9e; font-size:0.9rem;">❤️ Ваш папа и муж вашей мамы, Иван.</p>
 
         <!-- КНОПКА И СЕКРЕТ -->
         <div style="text-align: center; margin-top: 10px;">
@@ -735,7 +753,7 @@
             maxBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 maxFullscreen.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Блокируем скролл основного сайта
+                document.body.style.overflow = 'hidden';
             });
 
             // Закрытие полноэкранного окна МАХ
@@ -792,7 +810,6 @@
                     return;
                 }
 
-                // Если номер верный — открываем WhatsApp
                 const url = 'https://wa.me/' + TARGET_PHONE.replace('+', '');
                 window.open(url, '_blank');
                 closeModal();
