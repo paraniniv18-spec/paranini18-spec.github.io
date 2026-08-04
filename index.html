@@ -251,6 +251,33 @@
             display: block;
         }
 
+        /* Кнопка Архив */
+        #archive-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: #6c5ce7;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            font-weight: 900;
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        #archive-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+        }
+
         /* ========== МОДАЛЬНОЕ ОКНО (ДЛЯ ВВОДА НОМЕРА) ========== */
         .app-modal {
             position: fixed;
@@ -479,6 +506,127 @@
             flex-shrink: 0;
         }
 
+        /* ========== ПОЛНОЭКРАННОЕ ОКНО ДЛЯ АРХИВА ========== */
+        .archive-fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f0f0ff 0%, #e8e0ff 100%);
+            z-index: 99998;
+            display: none;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 20px 25px 40px;
+            box-sizing: border-box;
+        }
+
+        .archive-fullscreen.active {
+            display: flex;
+        }
+
+        .archive-fullscreen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0 20px;
+            border-bottom: 3px solid #6c5ce7;
+            margin-bottom: 25px;
+            flex-shrink: 0;
+        }
+
+        .archive-fullscreen-header h1 {
+            font-size: 1.8rem;
+            color: #6c5ce7;
+            margin: 0;
+        }
+
+        .archive-close-btn {
+            background: none;
+            border: none;
+            font-size: 36px;
+            color: #6c5ce7;
+            cursor: pointer;
+            padding: 0 10px;
+            transition: transform 0.2s;
+        }
+
+        .archive-close-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .archive-table-wrap {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 4px 30px rgba(108, 92, 231, 0.1);
+            overflow-x: auto;
+        }
+
+        .archive-table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+        }
+
+        .archive-table-wrap th {
+            background: #6c5ce7;
+            color: white;
+            padding: 14px 18px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .archive-table-wrap th:first-child {
+            border-radius: 12px 0 0 0;
+        }
+
+        .archive-table-wrap th:last-child {
+            border-radius: 0 12px 0 0;
+        }
+
+        .archive-table-wrap td {
+            padding: 12px 18px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .archive-table-wrap tr:last-child td {
+            border-bottom: none;
+        }
+
+        .archive-table-wrap tr:hover td {
+            background: #f8f6ff;
+        }
+
+        .archive-footer {
+            text-align: center;
+            padding: 25px 0 10px;
+            font-size: 1rem;
+            color: #6c5ce7;
+            border-top: 2px dashed #d5ccff;
+            margin-top: 20px;
+            flex-shrink: 0;
+        }
+
+        .clear-archive-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .clear-archive-btn:hover {
+            background: #c0392b;
+            transform: scale(1.03);
+        }
+
         /* ---------- АДАПТАЦИЯ ---------- */
         @media (max-width: 480px) {
             .floating-buttons {
@@ -487,7 +635,8 @@
                 gap: 10px;
             }
             #max-btn,
-            #whatsapp-btn {
+            #whatsapp-btn,
+            #archive-btn {
                 width: 54px;
                 height: 54px;
             }
@@ -495,16 +644,19 @@
                 width: 30px;
                 height: 30px;
             }
-            #max-btn {
-                font-size: 14px;
+            #max-btn,
+            #archive-btn {
+                font-size: 13px;
             }
             .app-modal-content {
                 padding: 25px 20px;
             }
-            .max-fullscreen {
+            .max-fullscreen,
+            .archive-fullscreen {
                 padding: 15px 18px 30px;
             }
-            .max-fullscreen-header h1 {
+            .max-fullscreen-header h1,
+            .archive-fullscreen-header h1 {
                 font-size: 1.4rem;
             }
             .max-day {
@@ -515,6 +667,14 @@
             }
             .moscow-image {
                 max-height: 200px;
+            }
+            .archive-table-wrap {
+                padding: 15px;
+            }
+            .archive-table-wrap th,
+            .archive-table-wrap td {
+                padding: 10px 12px;
+                font-size: 0.85rem;
             }
         }
 
@@ -554,7 +714,8 @@
             📩 Желаю вам классного и позитивного отпуска! Я люблю вас!!!
         </div>
 
-        <p style="text-align:right; margin-top:20px; color:#7a8a9e; font-size:0.9rem;">❤️ Ваш папа и муж вашей мамы, Иван.</p>
+        <!-- ИЗМЕНЁННЫЙ ТЕКСТ -->
+        <p style="text-align:right; margin-top:20px; color:#7a8a9e; font-size:0.9rem;">❤️ Твой муж, Иван.</p>
 
         <!-- КНОПКА И СЕКРЕТ -->
         <div style="text-align: center; margin-top: 10px;">
@@ -573,6 +734,8 @@
         <button id="whatsapp-btn" title="Написать в WhatsApp">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
         </button>
+        <!-- НОВАЯ КНОПКА АРХИВ -->
+        <button id="archive-btn" title="Архив кликов">📋</button>
     </div>
 
     <!-- ========== МОДАЛЬНОЕ ОКНО (ДЛЯ ВВОДА НОМЕРА) ========== -->
@@ -682,6 +845,33 @@
         </div>
     </div>
 
+    <!-- ========== ПОЛНОЭКРАННОЕ ОКНО ДЛЯ АРХИВА ========== -->
+    <div id="archive-fullscreen" class="archive-fullscreen">
+        <div class="archive-fullscreen-header">
+            <h1>📋 Архив кликов</h1>
+            <button class="archive-close-btn" id="archive-close-btn">&times;</button>
+        </div>
+
+        <div class="archive-table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>📅 Дата</th>
+                        <th>⏰ Время</th>
+                        <th>👆 Кол-во кликов</th>
+                    </tr>
+                </thead>
+                <tbody id="archive-table-body">
+                    <!-- Данные будут вставлены через JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="archive-footer">
+            <button class="clear-archive-btn" id="clear-archive-btn">🗑️ Очистить архив</button>
+        </div>
+    </div>
+
     <!-- JavaScript -->
     <script>
         // ---------- 1. ГЕНЕРАЦИЯ АНИМИРОВАННЫХ СЕРДЕЧЕК ----------
@@ -723,115 +913,18 @@
             }
         }
 
-        // ---------- 3. ЛОГИКА ДЛЯ КНОПОК МАХ И WHATSAPP ----------
-        document.addEventListener('DOMContentLoaded', function() {
-            // Элементы
-            const maxBtn = document.getElementById('max-btn');
-            const whatsappBtn = document.getElementById('whatsapp-btn');
-            const modal = document.getElementById('app-modal');
-            const modalContent = document.getElementById('app-modal-content');
-            const closeBtn = document.getElementById('close-modal');
-            const phoneInput = document.getElementById('phone-input');
-            const nextBtn = document.getElementById('next-btn');
-            const errorMsg = document.getElementById('error-message');
-            const modalTitle = document.getElementById('modal-title');
-            const modalIcon = document.getElementById('modal-app-icon');
-
-            // Полноэкранное окно МАХ
-            const maxFullscreen = document.getElementById('max-fullscreen');
-            const maxCloseBtn = document.getElementById('max-close-btn');
-
-            // Номер для проверки
-            const TARGET_PHONE = '+79274741984';
-
-            // Переменная для хранения текущего выбранного приложения
-            let currentApp = 'whatsapp';
-
-            // --- ОТКРЫТИЕ ПОЛНОЭКРАННОГО ОКНА МАХ (БЕЗ ПРОВЕРКИ НОМЕРА) ---
-            maxBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                maxFullscreen.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-
-            // Закрытие полноэкранного окна МАХ
-            maxCloseBtn.addEventListener('click', function() {
-                maxFullscreen.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-
-            // Закрытие по клику вне контента (на фон)
-            maxFullscreen.addEventListener('click', function(e) {
-                if (e.target === maxFullscreen) {
-                    maxFullscreen.classList.remove('active');
-                    document.body.style.overflow = 'auto';
+        // ---------- 3. РАБОТА С АРХИВОМ (ХРАНЕНИЕ В localStorage) ----------
+        function getArchiveData() {
+            const data = localStorage.getItem('clickArchive');
+            if (data) {
+                try {
+                    return JSON.parse(data);
+                } catch (e) {
+                    return [];
                 }
-            });
-
-            // --- ЛОГИКА ДЛЯ WHATSAPP (с проверкой номера) ---
-            whatsappBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                currentApp = 'whatsapp';
-                modal.style.display = 'flex';
-                phoneInput.value = '';
-                errorMsg.style.display = 'none';
-                modalIcon.textContent = '💬';
-                modalTitle.textContent = 'Введите номер для WhatsApp';
-                nextBtn.className = 'next-btn next-btn-wa';
-                nextBtn.textContent = 'Открыть WhatsApp ➜';
-                setTimeout(() => phoneInput.focus(), 100);
-            });
-
-            // Закрыть модальное окно
-            function closeModal() {
-                modal.style.display = 'none';
             }
+            return [];
+        }
 
-            closeBtn.addEventListener('click', closeModal);
-            window.addEventListener('click', function(e) {
-                if (e.target === modal) closeModal();
-            });
-
-            // Обработка кнопки "Дальше" (только для WhatsApp)
-            nextBtn.addEventListener('click', function() {
-                const phone = phoneInput.value.trim();
-
-                if (phone === '') {
-                    errorMsg.textContent = '⚠️ Пожалуйста, введите номер телефона';
-                    errorMsg.style.display = 'block';
-                    return;
-                }
-
-                if (phone !== TARGET_PHONE) {
-                    errorMsg.textContent = '❌ Введен неверный номер. Попробуйте снова.';
-                    errorMsg.style.display = 'block';
-                    return;
-                }
-
-                const url = 'https://wa.me/' + TARGET_PHONE.replace('+', '');
-                window.open(url, '_blank');
-                closeModal();
-            });
-
-            // Нажатие Enter в поле ввода
-            phoneInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    nextBtn.click();
-                }
-            });
-
-            // Закрытие полноэкранного окна по ESC
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && maxFullscreen.classList.contains('active')) {
-                    maxFullscreen.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        });
-
-        // Запускаем создание сердечек после загрузки
-        window.onload = createHearts;
-    </script>
-
-</body>
-</html>
+        function saveArchiveData(data) {
+            localStorage.setItem('clickArchive', JSON.stringify
