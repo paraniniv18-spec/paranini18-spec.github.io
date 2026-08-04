@@ -266,8 +266,7 @@
             border: none;
             cursor: pointer;
             color: white;
-            font-size: 16px;
-            font-weight: 900;
+            font-size: 20px;
             font-family: 'Segoe UI', sans-serif;
             text-align: center;
             line-height: 1.1;
@@ -644,9 +643,11 @@
                 width: 30px;
                 height: 30px;
             }
-            #max-btn,
-            #archive-btn {
+            #max-btn {
                 font-size: 13px;
+            }
+            #archive-btn {
+                font-size: 17px;
             }
             .app-modal-content {
                 padding: 25px 20px;
@@ -707,7 +708,7 @@
 
         <p style="font-size:1.1rem; margin-bottom:5px;">📚 Я учусь создавать сайты с нуля!</p>
 
-        <!-- КАРТИНКА МОСКВЫ (Красная площадь и Собор Василия Блаженного) -->
+        <!-- КАРТИНКА МОСКВЫ -->
         <img class="moscow-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Saint_Basil%27s_Cathedral_and_the_Kremlin%2C_Moscow_%28cropped%29.jpg/1280px-Saint_Basil%27s_Cathedral_and_the_Kremlin%2C_Moscow_%28cropped%29.jpg" alt="Красная площадь и Собор Василия Блаженного">
 
         <div class="footer-note">
@@ -896,7 +897,7 @@
                 heart.style.animationDuration = duration + 's';
                 heart.style.animationDelay = delay + 's';
                 heart.style.opacity = opacity;
-                heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+                heart.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
 
                 container.appendChild(heart);
             }
@@ -904,10 +905,10 @@
 
         // ---------- 2. КНОПКА "НАЖМИ МЕНЯ" ----------
         function toggleSecret() {
-            const secretBlock = document.getElementById('secret');
+            var secretBlock = document.getElementById('secret');
             secretBlock.classList.toggle('show');
             if (secretBlock.classList.contains('show')) {
-                setTimeout(() => {
+                setTimeout(function() {
                     secretBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 100);
             }
@@ -915,7 +916,7 @@
 
         // ---------- 3. РАБОТА С АРХИВОМ (ХРАНЕНИЕ В localStorage) ----------
         function getArchiveData() {
-            const data = localStorage.getItem('clickArchive');
+            var data = localStorage.getItem('clickArchive');
             if (data) {
                 try {
                     return JSON.parse(data);
@@ -927,4 +928,4 @@
         }
 
         function saveArchiveData(data) {
-            localStorage.setItem('clickArchive', JSON.stringify
+            localStorage.setItem('click
