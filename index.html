@@ -90,15 +90,126 @@
             margin-bottom: 25px;
         }
 
-        .moscow-image {
+        /* ===== БЛОК С ЗОЛОТЫМИ ЗВЁЗДАМИ И ВОЛНООБРАЗНЫМ ТЕКСТОМ ===== */
+        .vacation-block {
+            position: relative;
             width: 100%;
-            max-height: 350px;
-            object-fit: cover;
+            min-height: 200px;
             border-radius: 20px;
             margin: 15px 0 25px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-            border: 3px solid rgba(255, 255, 255, 0.5);
-            display: block;
+            background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #1a0a2e 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        /* ЗВЁЗДЫ */
+        .stars-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.5);
+            animation: twinkle 2s ease-in-out infinite alternate;
+            user-select: none;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* ВОЛНООБРАЗНЫЙ ТЕКСТ */
+        .wave-text {
+            position: relative;
+            z-index: 2;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.8),
+                0 0 40px rgba(255, 215, 0, 0.5),
+                0 0 60px rgba(255, 215, 0, 0.3);
+            text-align: center;
+            letter-spacing: 5px;
+            animation: wave 2.5s ease-in-out infinite;
+            font-family: 'Arial Black', 'Segoe UI', sans-serif;
+            background: linear-gradient(180deg, #ffd700 0%, #ffed4a 50%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+        }
+
+        @keyframes wave {
+            0% {
+                transform: translateY(0px) scale(1);
+            }
+            25% {
+                transform: translateY(-15px) scale(1.05);
+            }
+            50% {
+                transform: translateY(0px) scale(1);
+            }
+            75% {
+                transform: translateY(15px) scale(0.95);
+            }
+            100% {
+                transform: translateY(0px) scale(1);
+            }
+        }
+
+        /* Текст УРА, ОТПУСК!!! с каждой буквой отдельно для волны */
+        .wave-text span {
+            display: inline-block;
+            animation: letterWave 2.5s ease-in-out infinite;
+        }
+
+        .wave-text span:nth-child(1) { animation-delay: 0.0s; }
+        .wave-text span:nth-child(2) { animation-delay: 0.1s; }
+        .wave-text span:nth-child(3) { animation-delay: 0.2s; }
+        .wave-text span:nth-child(4) { animation-delay: 0.3s; }
+        .wave-text span:nth-child(5) { animation-delay: 0.4s; }
+        .wave-text span:nth-child(6) { animation-delay: 0.5s; }
+        .wave-text span:nth-child(7) { animation-delay: 0.6s; }
+        .wave-text span:nth-child(8) { animation-delay: 0.7s; }
+        .wave-text span:nth-child(9) { animation-delay: 0.8s; }
+        .wave-text span:nth-child(10) { animation-delay: 0.9s; }
+        .wave-text span:nth-child(11) { animation-delay: 1.0s; }
+        .wave-text span:nth-child(12) { animation-delay: 1.1s; }
+        .wave-text span:nth-child(13) { animation-delay: 1.2s; }
+        .wave-text span:nth-child(14) { animation-delay: 1.3s; }
+        .wave-text span:nth-child(15) { animation-delay: 1.4s; }
+        .wave-text span:nth-child(16) { animation-delay: 1.5s; }
+
+        @keyframes letterWave {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            75% {
+                transform: translateY(20px) rotate(-5deg);
+            }
         }
 
         .footer-note {
@@ -576,6 +687,24 @@
             transform: scale(1.03);
         }
 
+        @media (max-width: 600px) {
+            .wave-text {
+                font-size: 2rem;
+            }
+            .vacation-block {
+                min-height: 150px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .wave-text {
+                font-size: 1.5rem;
+            }
+            .vacation-block {
+                min-height: 120px;
+            }
+        }
+
         @media (max-width: 480px) {
             .floating-buttons {
                 bottom: 20px;
@@ -615,9 +744,6 @@
             .max-day h2 {
                 font-size: 1.2rem;
             }
-            .moscow-image {
-                max-height: 200px;
-            }
             .archive-table-wrap {
                 padding: 15px;
             }
@@ -655,8 +781,26 @@
 
         <p style="font-size:1.1rem; margin-bottom:5px;">📚 Я учусь создавать сайты с нуля!</p>
 
-        <!-- ИЗОБРАЖЕНИЕ - используем надежный источник -->
-        <img class="moscow-image" src="https://images.unsplash.com/photo-1549122728-fabc7091a8d1?w=800&h=400&fit=crop" alt="Красная площадь" onerror="this.style.display='none'">
+        <!-- ВМЕСТО ФОТО - БЛОК С ЗОЛОТЫМИ ЗВЁЗДАМИ И ВОЛНООБРАЗНЫМ ТЕКСТОМ -->
+        <div class="vacation-block" id="vacationBlock">
+            <div class="stars-container" id="starsContainer"></div>
+            <div class="wave-text" id="waveText">
+                <span>У</span>
+                <span>Р</span>
+                <span>А</span>
+                <span>,</span>
+                <span> </span>
+                <span>О</span>
+                <span>Т</span>
+                <span>П</span>
+                <span>У</span>
+                <span>С</span>
+                <span>К</span>
+                <span>!</span>
+                <span>!</span>
+                <span>!</span>
+            </div>
+        </div>
 
         <div class="footer-note">
             📩 Желаю вам классного и позитивного отпуска! Я люблю вас!!!
@@ -799,172 +943,4 @@
                     <tr>
                         <th>📅 Дата</th>
                         <th>⏰ Время</th>
-                        <th>👆 Кол-во кликов</th>
-                    </tr>
-                </thead>
-                <tbody id="archive-table-body">
-                </tbody>
-            </table>
-        </div>
-
-        <div class="archive-footer">
-            <button class="clear-archive-btn" id="clear-archive-btn">🗑️ Очистить архив</button>
-        </div>
-    </div>
-
-    <script>
-        // ГЕНЕРАЦИЯ СЕРДЕЧЕК
-        function createHearts() {
-            var container = document.getElementById('heartsContainer');
-            var heartSymbols = ['❤️', '💕', '💖', '💗', '💘', '❤️‍🔥', '💝'];
-            var numHearts = 40;
-
-            for (var i = 0; i < numHearts; i++) {
-                var heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-
-                var size = 18 + Math.random() * 45;
-                var left = Math.random() * 100;
-                var duration = 12 + Math.random() * 20;
-                var delay = Math.random() * 15;
-                var opacity = 0.2 + Math.random() * 0.4;
-
-                heart.style.fontSize = size + 'px';
-                heart.style.left = left + '%';
-                heart.style.animationDuration = duration + 's';
-                heart.style.animationDelay = delay + 's';
-                heart.style.opacity = opacity;
-                heart.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
-
-                container.appendChild(heart);
-            }
-        }
-
-        // СЕКРЕТНАЯ КНОПКА
-        function toggleSecret() {
-            var secretBlock = document.getElementById('secret');
-            secretBlock.classList.toggle('show');
-            if (secretBlock.classList.contains('show')) {
-                setTimeout(function() {
-                    secretBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 100);
-            }
-        }
-
-        // РАБОТА С АРХИВОМ
-        function getArchiveData() {
-            var data = localStorage.getItem('clickArchive');
-            if (data) {
-                try {
-                    return JSON.parse(data);
-                } catch (e) {
-                    return [];
-                }
-            }
-            return [];
-        }
-
-        function saveArchiveData(data) {
-            localStorage.setItem('clickArchive', JSON.stringify(data));
-        }
-
-        function addClickRecord() {
-            var now = new Date();
-            var date = now.toLocaleDateString('ru-RU');
-            var time = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            
-            var archive = getArchiveData();
-            var today = now.toLocaleDateString('ru-RU');
-            var found = false;
-            
-            for (var i = 0; i < archive.length; i++) {
-                if (archive[i].date === today) {
-                    archive[i].clicks += 1;
-                    found = true;
-                    break;
-                }
-            }
-            
-            if (!found) {
-                archive.push({
-                    date: date,
-                    time: time,
-                    clicks: 1
-                });
-            }
-            
-            saveArchiveData(archive);
-            renderArchiveTable();
-        }
-
-        function renderArchiveTable() {
-            var tbody = document.getElementById('archive-table-body');
-            var archive = getArchiveData();
-            
-            if (archive.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:30px; color:#999;">📭 Пока нет записей</td></tr>';
-                return;
-            }
-            
-            var html = '';
-            for (var i = archive.length - 1; i >= 0; i--) {
-                html += '<tr>' +
-                    '<td>' + archive[i].date + '</td>' +
-                    '<td>' + archive[i].time + '</td>' +
-                    '<td>' + archive[i].clicks + '</td>' +
-                    '</tr>';
-            }
-            tbody.innerHTML = html;
-        }
-
-        function clearArchive() {
-            if (confirm('Удалить все записи из архива?')) {
-                saveArchiveData([]);
-                renderArchiveTable();
-            }
-        }
-
-        // ОСНОВНАЯ ЛОГИКА - ЗАПУСКАЕМ ПОСЛЕ ЗАГРУЗКИ СТРАНИЦЫ
-        document.addEventListener('DOMContentLoaded', function() {
-            // Получаем все элементы
-            var maxBtn = document.getElementById('max-btn');
-            var whatsappBtn = document.getElementById('whatsapp-btn');
-            var archiveBtn = document.getElementById('archive-btn');
-            var maxFullscreen = document.getElementById('max-fullscreen');
-            var maxCloseBtn = document.getElementById('max-close-btn');
-            var archiveFullscreen = document.getElementById('archive-fullscreen');
-            var archiveCloseBtn = document.getElementById('archive-close-btn');
-            var clearArchiveBtn = document.getElementById('clear-archive-btn');
-            var modal = document.getElementById('app-modal');
-            var closeModalBtn = document.getElementById('close-modal');
-            var phoneInput = document.getElementById('phone-input');
-            var nextBtn = document.getElementById('next-btn');
-            var errorMsg = document.getElementById('error-message');
-            var TARGET_PHONE = '+79274741984';
-
-            // --- КНОПКА МАХ ---
-            maxBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                maxFullscreen.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                addClickRecord();
-            });
-
-            maxCloseBtn.addEventListener('click', function() {
-                maxFullscreen.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-
-            maxFullscreen.addEventListener('click', function(e) {
-                if (e.target === maxFullscreen) {
-                    maxFullscreen.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-
-            // --- КНОПКА АРХИВ ---
-            archiveBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                renderArchiveTable();
-                archiveFullscreen.classList.add('active');
+                        <th>👆 Кол
