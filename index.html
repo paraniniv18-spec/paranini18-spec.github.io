@@ -105,18 +105,6 @@
             display: block;
         }
 
-        .message {
-            background: rgba(248, 250, 255, 0.7);
-            padding: 25px 30px;
-            border-radius: 24px;
-            border-left: 6px solid #c44569;
-            line-height: 1.7;
-            font-size: 1.05rem;
-            color: #1e2b39;
-            margin: 25px 0;
-            white-space: pre-wrap;
-        }
-
         .footer-note {
             margin-top: 30px;
             padding: 18px 25px;
@@ -126,12 +114,6 @@
             font-weight: 500;
             color: #2c3e50;
             font-size: 1.1rem;
-        }
-
-        .emoji-big {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 5px;
         }
 
         /* ---------- КНОПКА И СЕКРЕТНЫЙ БЛОК ---------- */
@@ -266,7 +248,7 @@
             border: none;
             cursor: pointer;
             color: white;
-            font-size: 20px;
+            font-size: 24px;
             font-family: 'Segoe UI', sans-serif;
             text-align: center;
             line-height: 1.1;
@@ -373,13 +355,6 @@
             background-color: #1ebc5c;
         }
 
-        .next-btn-max {
-            background-color: #ff6b00;
-        }
-        .next-btn-max:hover {
-            background-color: #e05f00;
-        }
-
         .error-message {
             margin-top: 12px;
             font-size: 14px;
@@ -479,19 +454,6 @@
 
         .max-day .place a:hover {
             text-decoration: underline;
-        }
-
-        .max-day .badge {
-            display: inline-block;
-            background: #ff6b00;
-            color: white;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 3px 12px;
-            border-radius: 30px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-right: 5px;
         }
 
         .max-footer {
@@ -647,7 +609,7 @@
                 font-size: 13px;
             }
             #archive-btn {
-                font-size: 17px;
+                font-size: 20px;
             }
             .app-modal-content {
                 padding: 25px 20px;
@@ -735,7 +697,6 @@
         <button id="whatsapp-btn" title="Написать в WhatsApp">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
         </button>
-        <!-- НОВАЯ КНОПКА АРХИВ -->
         <button id="archive-btn" title="Архив кликов">📋</button>
     </div>
 
@@ -877,20 +838,20 @@
     <script>
         // ---------- 1. ГЕНЕРАЦИЯ АНИМИРОВАННЫХ СЕРДЕЧЕК ----------
         function createHearts() {
-            const container = document.getElementById('heartsContainer');
-            const heartSymbols = ['❤️', '💕', '💖', '💗', '💘', '❤️‍🔥', '💝'];
-            const numHearts = 40;
+            var container = document.getElementById('heartsContainer');
+            var heartSymbols = ['❤️', '💕', '💖', '💗', '💘', '❤️‍🔥', '💝'];
+            var numHearts = 40;
 
-            for (let i = 0; i < numHearts; i++) {
-                const heart = document.createElement('div');
+            for (var i = 0; i < numHearts; i++) {
+                var heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
 
-                const size = 18 + Math.random() * 45;
-                const left = Math.random() * 100;
-                const duration = 12 + Math.random() * 20;
-                const delay = Math.random() * 15;
-                const opacity = 0.2 + Math.random() * 0.4;
+                var size = 18 + Math.random() * 45;
+                var left = Math.random() * 100;
+                var duration = 12 + Math.random() * 20;
+                var delay = Math.random() * 15;
+                var opacity = 0.2 + Math.random() * 0.4;
 
                 heart.style.fontSize = size + 'px';
                 heart.style.left = left + '%';
@@ -928,4 +889,43 @@
         }
 
         function saveArchiveData(data) {
-            localStorage.setItem('click
+            localStorage.setItem('clickArchive', JSON.stringify(data));
+        }
+
+        function addClickRecord() {
+            var now = new Date();
+            var date = now.toLocaleDateString('ru-RU');
+            var time = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            
+            var archive = getArchiveData();
+            
+            // Если есть запись за сегодня, увеличиваем счётчик
+            var today = now.toLocaleDateString('ru-RU');
+            var found = false;
+            for (var i = 0; i < archive.length; i++) {
+                if (archive[i].date === today) {
+                    archive[i].clicks += 1;
+                    found = true;
+                    break;
+                }
+            }
+            
+            // Если записи за сегодня нет, создаём новую
+            if (!found) {
+                archive.push({
+                    date: date,
+                    time: time,
+                    clicks: 1
+                });
+            }
+            
+            saveArchiveData(archive);
+            renderArchiveTable();
+        }
+
+        function renderArchiveTable() {
+            var tbody = document.getElementById('archive-table-body');
+            var archive = getArchiveData();
+            
+            if (archive.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3"
