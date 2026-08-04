@@ -655,8 +655,8 @@
 
         <p style="font-size:1.1rem; margin-bottom:5px;">📚 Я учусь создавать сайты с нуля!</p>
 
-        <!-- ИЗОБРАЖЕНИЕ - заменено на другой источник -->
-        <img class="moscow-image" src="https://cdn.culture.ru/images/b5d1e4dc-7f9d-5e4a-8b1e-3c9d8a5f2e7a/red-square.jpg" alt="Красная площадь" onerror="this.src='https://via.placeholder.com/750x350/ff6b6b/ffffff?text=❤️+Красная+площадь+❤️'">
+        <!-- ИЗОБРАЖЕНИЕ - используем надежный источник -->
+        <img class="moscow-image" src="https://images.unsplash.com/photo-1549122728-fabc7091a8d1?w=800&h=400&fit=crop" alt="Красная площадь" onerror="this.style.display='none'">
 
         <div class="footer-note">
             📩 Желаю вам классного и позитивного отпуска! Я люблю вас!!!
@@ -925,8 +925,9 @@
             }
         }
 
-        // ОСНОВНАЯ ЛОГИКА
+        // ОСНОВНАЯ ЛОГИКА - ЗАПУСКАЕМ ПОСЛЕ ЗАГРУЗКИ СТРАНИЦЫ
         document.addEventListener('DOMContentLoaded', function() {
+            // Получаем все элементы
             var maxBtn = document.getElementById('max-btn');
             var whatsappBtn = document.getElementById('whatsapp-btn');
             var archiveBtn = document.getElementById('archive-btn');
@@ -936,21 +937,20 @@
             var archiveCloseBtn = document.getElementById('archive-close-btn');
             var clearArchiveBtn = document.getElementById('clear-archive-btn');
             var modal = document.getElementById('app-modal');
-            var closeModal = document.getElementById('close-modal');
+            var closeModalBtn = document.getElementById('close-modal');
             var phoneInput = document.getElementById('phone-input');
             var nextBtn = document.getElementById('next-btn');
             var errorMsg = document.getElementById('error-message');
             var TARGET_PHONE = '+79274741984';
 
-            // МАХ - открыть
+            // --- КНОПКА МАХ ---
             maxBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 maxFullscreen.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                addClickRecord(); // записываем клик
+                addClickRecord();
             });
 
-            // МАХ - закрыть
             maxCloseBtn.addEventListener('click', function() {
                 maxFullscreen.classList.remove('active');
                 document.body.style.overflow = 'auto';
@@ -963,5 +963,8 @@
                 }
             });
 
-            // АРХИВ - открыть
-            archiveBtn.addEventListener('click', function(e
+            // --- КНОПКА АРХИВ ---
+            archiveBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                renderArchiveTable();
+                archiveFullscreen.classList.add('active');
