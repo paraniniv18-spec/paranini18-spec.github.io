@@ -412,7 +412,7 @@
             box-shadow: 0 6px 16px rgba(0,0,0,0.35);
         }
 
-        /* ===== МОДАЛЬНОЕ ОКНО ДЛЯ ПАРОЛЯ (ОБЩЕЕ ДЛЯ ИИ И КОД) ===== */
+        /* ===== МОДАЛЬНОЕ ОКНО ДЛЯ ПАРОЛЯ (ОБЩЕЕ) ===== */
         .password-modal {
             position: fixed;
             top: 0;
@@ -933,12 +933,36 @@
             padding: 12px 20px;
             background: linear-gradient(135deg, #6c5ce7, #a29bfe);
             flex-shrink: 0;
+            gap: 10px;
         }
 
         .ai-fullscreen-header h2 {
             color: white;
             font-size: 1.2rem;
             margin: 0;
+            flex: 1;
+        }
+
+        .ai-fullscreen-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .ai-refresh-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px 12px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+            line-height: 1.4;
+        }
+
+        .ai-refresh-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
         }
 
         .ai-close-btn {
@@ -947,9 +971,10 @@
             font-size: 32px;
             color: white;
             cursor: pointer;
-            padding: 0 10px;
+            padding: 0 5px;
             transition: transform 0.2s;
             opacity: 0.8;
+            line-height: 1;
         }
 
         .ai-close-btn:hover {
@@ -1037,6 +1062,13 @@
             .archive-table-wrap td {
                 padding: 10px 12px;
                 font-size: 0.85rem;
+            }
+            .ai-fullscreen-header h2 {
+                font-size: 1rem;
+            }
+            .ai-refresh-btn {
+                font-size: 16px;
+                padding: 2px 10px;
             }
         }
 
@@ -1250,9 +1282,12 @@
     <div id="ai-fullscreen" class="ai-fullscreen">
         <div class="ai-fullscreen-header">
             <h2>🤖 ИИ-помощник</h2>
-            <button class="ai-close-btn" id="ai-close-btn">&times;</button>
+            <div class="ai-fullscreen-actions">
+                <button class="ai-refresh-btn" id="ai-refresh-btn" title="Обновить">🔄</button>
+                <button class="ai-close-btn" id="ai-close-btn">&times;</button>
+            </div>
         </div>
-        <iframe src="https://chat.deepseek.com/a/chat/s/9f9feeb8-85e5-4474-aad2-6874c0a4a662" allow="microphone; camera; clipboard-read; clipboard-write"></iframe>
+        <iframe id="ai-iframe" src="https://chat.deepseek.com/a/chat/s/9f9feeb8-85e5-4474-aad2-6874c0a4a662" allow="microphone; camera; clipboard-read; clipboard-write"></iframe>
     </div>
 
     <script>
@@ -1383,22 +1418,35 @@
             var modalPasswordDesc = document.getElementById('modal-password-desc');
 
             var CORRECT_PASSWORD = '1234';
-
-            // Переменная для хранения цели (куда перейти после ввода пароля)
             var passwordTarget = '';
+
+            // Элементы для ИИ
+            var aiFullscreen = document.getElementById('ai-fullscreen');
+            var aiCloseBtn = document.getElementById('ai-close-btn');
+            var aiRefreshBtn = document.getElementById('ai-refresh-btn');
+            var aiIframe = document.getElementById('ai-iframe');
+
+            // ===== КНОПКА ОБНОВЛЕНИЯ ДЛЯ ИИ =====
+            aiRefreshBtn.addEventListener('click', function() {
+                // Перезагружаем iframe
+                aiIframe.src = aiIframe.src;
+                // Показываем уведомление (опционально)
+                aiRefreshBtn.textContent = '✅';
+                setTimeout(function() {
+                    aiRefreshBtn.textContent = '🔄';
+                }, 1500);
+            });
 
             // ===== ОТКРЫТИЕ МОДАЛЬНОГО ОКНА ДЛЯ ИИ =====
             aiBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 passwordTarget = 'ai';
-                // Настройка модального окна под ИИ
                 modalContent.className = 'password-modal-content ai-modal';
                 modalLockIcon.textContent = '🤖';
                 modalPasswordTitle.textContent = 'Введите пароль для ИИ';
                 modalPasswordDesc.textContent = 'Введите секретный код для доступа к ИИ-помощнику';
                 passwordSubmitBtn.textContent = '🤖 Открыть ИИ';
                 passwordInput.placeholder = '• • • •';
-                // Открываем модальное окно
                 passwordModal.classList.add('active');
                 passwordInput.value = '';
                 passwordError.classList.remove('show');
@@ -1412,14 +1460,12 @@
             codeBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 passwordTarget = 'code';
-                // Настройка модального окна под КОД
                 modalContent.className = 'password-modal-content';
                 modalLockIcon.textContent = '🔐';
                 modalPasswordTitle.textContent = 'Введите пароль';
                 modalPasswordDesc.textContent = 'Введите секретный код для доступа';
                 passwordSubmitBtn.textContent = '🔓 Войти';
                 passwordInput.placeholder = '• • • •';
-                // Открываем модальное окно
                 passwordModal.classList.add('active');
                 passwordInput.value = '';
                 passwordError.classList.remove('show');
@@ -1458,14 +1504,12 @@
                     passwordModal.classList.remove('active');
                     passwordInput.value = '';
 
-                    // Действие в зависимости от цели
                     if (passwordTarget === 'ai') {
-                        // Открываем полноэкранное окно ИИ
-                        var aiFullscreen = document.getElementById('ai-fullscreen');
+                        // Открываем полноэкранное окно ИИ и обновляем iframe
+                        aiIframe.src = aiIframe.src;
                         aiFullscreen.classList.add('active');
                         document.body.style.overflow = 'hidden';
                     } else if (passwordTarget === 'code') {
-                        // Открываем ссылку на GitHub
                         window.open('https://github.com/paraniniv18-spec/paranini18-spec.github.io', '_blank');
                     }
                     passwordTarget = '';
@@ -1492,10 +1536,7 @@
                 this.value = this.value.replace(/\D/g, '');
             });
 
-            // ===== ПОЛНОЭКРАННОЕ ОКНО ИИ =====
-            var aiFullscreen = document.getElementById('ai-fullscreen');
-            var aiCloseBtn = document.getElementById('ai-close-btn');
-
+            // ===== ЗАКРЫТИЕ ПОЛНОЭКРАННОГО ОКНА ИИ =====
             aiCloseBtn.addEventListener('click', function() {
                 aiFullscreen.classList.remove('active');
                 document.body.style.overflow = 'auto';
@@ -1509,7 +1550,6 @@
             });
 
             // ===== ОСТАЛЬНАЯ ЛОГИКА (МАХ, АРХИВ, WHATSAPP) =====
-
             maxBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 maxFullscreen.classList.add('active');
