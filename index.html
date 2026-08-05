@@ -72,10 +72,6 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
-        .card:hover {
-            transform: translateY(-5px) scale(1.005);
-        }
-
         h1 {
             font-size: 2.4rem;
             margin-bottom: 5px;
@@ -228,7 +224,6 @@
             color: #8a2e4a;
             font-size: 1.1rem;
             border: 2px dashed #c44569;
-            transition: all 0.5s ease;
             text-align: center;
         }
 
@@ -262,15 +257,12 @@
             background-color: #ff6b00;
             border-radius: 50%;
             box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            text-decoration: none;
             border: none;
             cursor: pointer;
             color: white;
             font-size: 16px;
             font-weight: 900;
             font-family: 'Segoe UI', sans-serif;
-            letter-spacing: -0.5px;
             text-align: center;
             line-height: 1.1;
         }
@@ -289,8 +281,6 @@
             background-color: #25d366;
             border-radius: 50%;
             box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            text-decoration: none;
             border: none;
             cursor: pointer;
         }
@@ -315,8 +305,6 @@
             background-color: #6c5ce7;
             border-radius: 50%;
             box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            text-decoration: none;
             border: none;
             cursor: pointer;
             color: white;
@@ -353,12 +341,6 @@
             position: relative;
             box-shadow: 0 8px 30px rgba(0,0,0,0.3);
             text-align: center;
-            animation: modalFadeIn 0.3s ease;
-        }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .close-modal {
@@ -399,7 +381,6 @@
             border-radius: 8px;
             box-sizing: border-box;
             margin-bottom: 18px;
-            transition: border-color 0.2s;
         }
 
         .phone-input:focus {
@@ -415,13 +396,13 @@
             font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.2s;
             width: 100%;
         }
 
         .next-btn-wa {
             background-color: #25d366;
         }
+
         .next-btn-wa:hover {
             background-color: #1ebc5c;
         }
@@ -475,7 +456,6 @@
             color: #ff6b00;
             cursor: pointer;
             padding: 0 10px;
-            transition: transform 0.2s;
         }
 
         .max-close-btn:hover {
@@ -502,10 +482,6 @@
             line-height: 1.7;
             color: #2d2d2d;
             margin-bottom: 8px;
-        }
-
-        .max-day strong {
-            color: #1a1a1a;
         }
 
         .max-day .place {
@@ -579,7 +555,6 @@
             color: #6c5ce7;
             cursor: pointer;
             padding: 0 10px;
-            transition: transform 0.2s;
         }
 
         .archive-close-btn:hover {
@@ -625,10 +600,6 @@
             border-bottom: none;
         }
 
-        .archive-table-wrap tr:hover td {
-            background: #f8f6ff;
-        }
-
         .archive-footer {
             text-align: center;
             padding: 25px 0 10px;
@@ -648,7 +619,6 @@
             font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
             margin-top: 10px;
         }
 
@@ -751,23 +721,12 @@
 
         <p style="font-size:1.1rem; margin-bottom:5px;">📚 Я учусь создавать сайты с нуля!</p>
 
-        <div class="vacation-block" id="vacationBlock">
+        <div class="vacation-block">
             <div class="stars-container" id="starsContainer"></div>
-            <div class="wave-text" id="waveText">
-                <span>У</span>
-                <span>Р</span>
-                <span>А</span>
-                <span>,</span>
-                <span> </span>
-                <span>О</span>
-                <span>Т</span>
-                <span>П</span>
-                <span>У</span>
-                <span>С</span>
-                <span>К</span>
-                <span>!</span>
-                <span>!</span>
-                <span>!</span>
+            <div class="wave-text">
+                <span>У</span><span>Р</span><span>А</span><span>,</span><span> </span>
+                <span>О</span><span>Т</span><span>П</span><span>У</span><span>С</span><span>К</span>
+                <span>!</span><span>!</span><span>!</span>
             </div>
         </div>
 
@@ -811,93 +770,32 @@
             <h1>🗺️ 5 дней в Москве</h1>
             <button class="max-close-btn" id="max-close-btn">&times;</button>
         </div>
-
         <div class="max-day">
             <h2>🗓️ День 1: Адреналин и городской экстрим</h2>
-            <p>Начните с ярких впечатлений, которые надолго запомнятся.</p>
-            <div class="place">
-                <strong>🏰 Остров мечты:</strong> Самый масштабный крытый парк развлечений в Европе — более 50 аттракционов от спокойных до экстремальных. Тематические зоны по мотивам фильмов и мультфильмов, захватывающие шоу.<br>
-                📍 пр-т Андропова, д. 1, м. «Технопарк»<br>
-                🎫 от 2100 ₽<br>
-                🔗 <a href="https://dreamisland.ru" target="_blank">dreamisland.ru</a>
-            </div>
-            <div class="place">
-                <strong>🌳 Альтернатива: парк «Сказка» в Крылатском:</strong> Экстремальные аттракционы, «Дом страха», веревочные трассы, контактный зоопарк с альпаками и хаски, дино-сафари.<br>
-                📍 ул. Крылатская, д. 18, м. «Крылатское»<br>
-                🔗 <a href="https://parkskazka.com" target="_blank">parkskazka.com</a>
-            </div>
+            <p>Начните с ярких впечатлений!</p>
+            <div class="place"><strong>🏰 Остров мечты:</strong> Крупнейший крытый парк аттракционов в Европе.</div>
         </div>
-
         <div class="max-day">
-            <h2>🗓️ День 2: Тайны, шифры и подземелья</h2>
-            <p>День, полный загадок и исторических открытий.</p>
-            <div class="place">
-                <strong>🔐 Музей криптографии:</strong> Интерактивный музей об истории шифрования. Настоящая машина «Энигма», блокчейн, квест «Расшифруй музей» для детей от 12 лет.<br>
-                🔗 <a href="https://cryptography-museum.ru" target="_blank">cryptography-museum.ru</a>
-            </div>
-            <div class="place">
-                <strong>🕳️ «Бункер-42»:</strong> Спуск на глубину 65 метров в настоящий бункер времен Холодной войны. Интерактивные программы: сборка/разборка автомата Калашникова, «офицерский паёк».<br>
-                🔗 <a href="https://bunker42.com" target="_blank">bunker42.com</a>
-            </div>
+            <h2>🗓️ День 2: Тайны и подземелья</h2>
+            <p>День, полный загадок.</p>
+            <div class="place"><strong>🔐 Музей криптографии:</strong> Интерактивный музей шифрования.</div>
         </div>
-
         <div class="max-day">
             <h2>🗓️ День 3: Наука и эксперименты</h2>
-            <p>Один из самых увлекательных дней, где скучно не будет никому.</p>
-            <div class="place">
-                <strong>🧪 «Экспериментаниум»:</strong> Более 250 интерактивных экспонатов по физике и химии — всё можно трогать руками! Научные шоу с захватывающими опытами.<br>
-                📍 Ленинградский пр-т, д. 80, корп. 11, м. «Сокол»<br>
-                ⏰ 09:30 – 20:00, ежедневно<br>
-                🎫 от 850 до 1450 ₽<br>
-                🔗 <a href="https://experimentanium.ru" target="_blank">experimentanium.ru</a>
-            </div>
-            <div class="place">
-                <strong>🌌 Альтернатива: Московский Планетарий:</strong> Большой звездный зал с куполом 25 м, интерактивный музей «Лунариум» с опытами о космосе.
-            </div>
+            <p>Увлекательный день для всей семьи.</p>
+            <div class="place"><strong>🧪 Экспериментаниум:</strong> Более 250 экспонатов по физике и химии.</div>
         </div>
-
         <div class="max-day">
-            <h2>🗓️ День 4: Прогулка по ВДНХ и активный отдых</h2>
-            <p>Огромная территория, где каждый найдет занятие по душе.</p>
-            <div class="place">
-                <strong>⚛️ Музей «Атом»:</strong> Познавательный музей о мирном атоме с интерактивными экспозициями.
-            </div>
-            <div class="place">
-                <strong>🚀 Музей космонавтики:</strong> У подножия монумента «Покорителям космоса». История освоения космоса, уникальные экспонаты.
-            </div>
-            <div class="place">
-                <strong>🦋 «Баттерфляриум»:</strong> Музей живых тропических бабочек — красивые фото.
-            </div>
-            <div class="place">
-                <strong>🧗 Веревочный парк SkyTown:</strong> Самый высокий веревочный парк в стране. Трассы разной сложности на высоте до 15 м над фонтанами.
-            </div>
-            <div class="place">
-                <strong>🏙️ Павильон «Макет Москвы»:</strong> Вся столица как на ладони в детализированной миниатюре.
-            </div>
-            <div class="place">
-                <strong>🏎️ Активный вечер:</strong> Батутные центры, скалодром Tokyo, картинг X-TI Pilot.
-            </div>
+            <h2>🗓️ День 4: ВДНХ и активный отдых</h2>
+            <p>Огромная территория для развлечений.</p>
+            <div class="place"><strong>⚛️ Музей Атом:</strong> Познавательный музей о мирном атоме.</div>
         </div>
-
         <div class="max-day">
-            <h2>🗓️ День 5: Парки, киностудия и прощание с городом</h2>
-            <p>Последний день — насыщенный, но не утомительный.</p>
-            <div class="place">
-                <strong>🌳 Парк Горького:</strong> Знаковое место для прогулок, роликов, скейт-площадка. Музей современного искусства «Гараж». Вход бесплатный.
-            </div>
-            <div class="place">
-                <strong>🎬 Киностудия «Мосфильм»:</strong> За кулисы отечественного кинематографа. Старые декорации, ретро-техника, секреты съемок фильмов, включая «Вия».<br>
-                📍 ул. Мосфильмовская, д. 1<br>
-                🎫 от 780 ₽
-            </div>
-            <div class="place">
-                <strong>🏙️ На прощание: PANORAMA360</strong> в башне «Федерация» в Москва-Сити — вид с высоты 89-го этажа.
-            </div>
+            <h2>🗓️ День 5: Парки и киностудия</h2>
+            <p>Последний день в Москве.</p>
+            <div class="place"><strong>🌳 Парк Горького:</strong> Знаковое место для прогулок.</div>
         </div>
-
-        <div class="max-footer">
-            ❤️ Отличного отпуска, Оксана! ❤️
-        </div>
+        <div class="max-footer">❤️ Отличного отпуска, Оксана! ❤️</div>
     </div>
 
     <div id="archive-fullscreen" class="archive-fullscreen">
@@ -905,55 +803,245 @@
             <h1>📋 Архив кликов</h1>
             <button class="archive-close-btn" id="archive-close-btn">&times;</button>
         </div>
-
         <div class="archive-table-wrap">
             <table>
                 <thead>
-                    <tr>
-                        <th>📅 Дата</th>
-                        <th>⏰ Время</th>
-                        <th>👆 Кол-во кликов</th>
-                    </tr>
+                    <tr><th>📅 Дата</th><th>⏰ Время</th><th>👆 Кол-во кликов</th></tr>
                 </thead>
-                <tbody id="archive-table-body">
-                </tbody>
+                <tbody id="archive-table-body"></tbody>
             </table>
         </div>
-
         <div class="archive-footer">
             <button class="clear-archive-btn" id="clear-archive-btn">🗑️ Очистить архив</button>
         </div>
     </div>
 
     <script>
-        // ГЕНЕРАЦИЯ СЕРДЕЧЕК
+        // ===== ВСЕ ФУНКЦИИ =====
+
+        // 1. Сердечки
         function createHearts() {
             var container = document.getElementById('heartsContainer');
-            var heartSymbols = ['❤️', '💕', '💖', '💗', '💘', '❤️‍🔥', '💝'];
-            var numHearts = 40;
-
-            for (var i = 0; i < numHearts; i++) {
-                var heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-
-                var size = 18 + Math.random() * 45;
-                var left = Math.random() * 100;
-                var duration = 12 + Math.random() * 20;
-                var delay = Math.random() * 15;
-                var opacity = 0.2 + Math.random() * 0.4;
-
-                heart.style.fontSize = size + 'px';
-                heart.style.left = left + '%';
-                heart.style.animationDuration = duration + 's';
-                heart.style.animationDelay = delay + 's';
-                heart.style.opacity = opacity;
-                heart.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
-
-                container.appendChild(heart);
+            var symbols = ['❤️', '💕', '💖', '💗', '💘', '❤️‍🔥', '💝'];
+            for (var i = 0; i < 40; i++) {
+                var el = document.createElement('div');
+                el.className = 'heart';
+                el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                el.style.fontSize = (18 + Math.random() * 45) + 'px';
+                el.style.left = Math.random() * 100 + '%';
+                el.style.animationDuration = (12 + Math.random() * 20) + 's';
+                el.style.animationDelay = Math.random() * 15 + 's';
+                el.style.opacity = 0.2 + Math.random() * 0.4;
+                container.appendChild(el);
             }
         }
 
-        // ГЕНЕРАЦИЯ ЗВЁЗД
+        // 2. Звёзды
         function createStars() {
-            var container = document.getElementById('starsContainer
+            var container = document.getElementById('starsContainer');
+            var starSizes = ['⭐', '✨', '🌟', '⭐', '✨'];
+            for (var i = 0; i < 25; i++) {
+                var el = document.createElement('div');
+                el.className = 'star';
+                el.textContent = starSizes[Math.floor(Math.random() * starSizes.length)];
+                var size = 12 + Math.random() * 35;
+                el.style.fontSize = size + 'px';
+                el.style.left = Math.random() * 95 + '%';
+                el.style.top = Math.random() * 95 + '%';
+                el.style.animationDelay = Math.random() * 3 + 's';
+                el.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+                container.appendChild(el);
+            }
+        }
+
+        // 3. Секретная кнопка
+        function toggleSecret() {
+            var block = document.getElementById('secret');
+            block.classList.toggle('show');
+            if (block.classList.contains('show')) {
+                setTimeout(function() {
+                    block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
+
+        // 4. Архив
+        function getArchive() {
+            var data = localStorage.getItem('clickArchive');
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveArchive(data) {
+            localStorage.setItem('clickArchive', JSON.stringify(data));
+        }
+
+        function renderArchive() {
+            var tbody = document.getElementById('archive-table-body');
+            var data = getArchive();
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;padding:30px;color:#999;">📭 Нет записей</td></tr>';
+                return;
+            }
+            var html = '';
+            for (var i = data.length - 1; i >= 0; i--) {
+                html += '<tr><td>' + data[i].date + '</td><td>' + data[i].time + '</td><td>' + data[i].clicks + '</td></tr>';
+            }
+            tbody.innerHTML = html;
+        }
+
+        function addClick() {
+            var now = new Date();
+            var date = now.toLocaleDateString('ru-RU');
+            var time = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            var data = getArchive();
+            var found = false;
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].date === date) {
+                    data[i].clicks += 1;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                data.push({ date: date, time: time, clicks: 1 });
+            }
+            saveArchive(data);
+            renderArchive();
+        }
+
+        function clearArchive() {
+            if (confirm('Удалить все записи?')) {
+                saveArchive([]);
+                renderArchive();
+            }
+        }
+
+        // ===== ЗАПУСК ВСЕГО =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Создаём сердечки и звёзды
+            createHearts();
+            createStars();
+
+            // Элементы
+            var maxBtn = document.getElementById('max-btn');
+            var whatsappBtn = document.getElementById('whatsapp-btn');
+            var archiveBtn = document.getElementById('archive-btn');
+            var maxFullscreen = document.getElementById('max-fullscreen');
+            var maxClose = document.getElementById('max-close-btn');
+            var archiveFullscreen = document.getElementById('archive-fullscreen');
+            var archiveClose = document.getElementById('archive-close-btn');
+            var clearBtn = document.getElementById('clear-archive-btn');
+            var modal = document.getElementById('app-modal');
+            var modalClose = document.getElementById('close-modal');
+            var phoneInput = document.getElementById('phone-input');
+            var nextBtn = document.getElementById('next-btn');
+            var errorMsg = document.getElementById('error-message');
+            var TARGET = '+79274741984';
+
+            // МАХ - открыть
+            maxBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                maxFullscreen.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                addClick();
+            });
+
+            // МАХ - закрыть
+            maxClose.addEventListener('click', function() {
+                maxFullscreen.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            maxFullscreen.addEventListener('click', function(e) {
+                if (e.target === maxFullscreen) {
+                    maxFullscreen.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // АРХИВ - открыть
+            archiveBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                renderArchive();
+                archiveFullscreen.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                addClick();
+            });
+
+            // АРХИВ - закрыть
+            archiveClose.addEventListener('click', function() {
+                archiveFullscreen.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            archiveFullscreen.addEventListener('click', function(e) {
+                if (e.target === archiveFullscreen) {
+                    archiveFullscreen.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Очистить архив
+            clearBtn.addEventListener('click', clearArchive);
+
+            // WHATSAPP
+            whatsappBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.style.display = 'flex';
+                phoneInput.value = '';
+                errorMsg.style.display = 'none';
+                setTimeout(function() { phoneInput.focus(); }, 100);
+                addClick();
+            });
+
+            // Закрыть модалку
+            modalClose.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) modal.style.display = 'none';
+            });
+
+            // Проверка номера
+            nextBtn.addEventListener('click', function() {
+                var phone = phoneInput.value.trim();
+                if (phone === '') {
+                    errorMsg.textContent = '⚠️ Введите номер телефона';
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+                if (phone !== TARGET) {
+                    errorMsg.textContent = '❌ Неверный номер. Попробуйте снова.';
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+                window.open('https://wa.me/' + TARGET.replace('+', ''), '_blank');
+                modal.style.display = 'none';
+            });
+
+            phoneInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') nextBtn.click();
+            });
+
+            // ESC для закрытия
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (maxFullscreen.classList.contains('active')) {
+                        maxFullscreen.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                    if (archiveFullscreen.classList.contains('active')) {
+                        archiveFullscreen.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                    if (modal.style.display === 'flex') {
+                        modal.style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
