@@ -901,87 +901,6 @@
             transform: scale(1.03);
         }
 
-        /* ===== ПОЛНОЭКРАННОЕ ОКНО ДЛЯ ИИ ===== */
-        .ai-fullscreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 99997;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .ai-fullscreen.active {
-            display: flex;
-        }
-
-        .ai-fullscreen iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            flex: 1;
-        }
-
-        .ai-fullscreen-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            flex-shrink: 0;
-            gap: 10px;
-        }
-
-        .ai-fullscreen-header h2 {
-            color: white;
-            font-size: 1.2rem;
-            margin: 0;
-            flex: 1;
-        }
-
-        .ai-fullscreen-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .ai-refresh-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 4px 12px;
-            border-radius: 8px;
-            transition: background 0.3s ease;
-            line-height: 1.4;
-        }
-
-        .ai-refresh-btn:hover {
-            background: rgba(255, 255, 255, 0.4);
-        }
-
-        .ai-close-btn {
-            background: none;
-            border: none;
-            font-size: 32px;
-            color: white;
-            cursor: pointer;
-            padding: 0 5px;
-            transition: transform 0.2s;
-            opacity: 0.8;
-            line-height: 1;
-        }
-
-        .ai-close-btn:hover {
-            transform: scale(1.2);
-            opacity: 1;
-        }
-
         @media (max-width: 600px) {
             .wave-text {
                 font-size: 2.2rem;
@@ -1062,13 +981,6 @@
             .archive-table-wrap td {
                 padding: 10px 12px;
                 font-size: 0.85rem;
-            }
-            .ai-fullscreen-header h2 {
-                font-size: 1rem;
-            }
-            .ai-refresh-btn {
-                font-size: 16px;
-                padding: 2px 10px;
             }
         }
 
@@ -1278,18 +1190,6 @@
         </div>
     </div>
 
-    <!-- ===== ПОЛНОЭКРАННОЕ ОКНО ДЛЯ ИИ ===== -->
-    <div id="ai-fullscreen" class="ai-fullscreen">
-        <div class="ai-fullscreen-header">
-            <h2>🤖 ИИ-помощник</h2>
-            <div class="ai-fullscreen-actions">
-                <button class="ai-refresh-btn" id="ai-refresh-btn" title="Обновить">🔄</button>
-                <button class="ai-close-btn" id="ai-close-btn">&times;</button>
-            </div>
-        </div>
-        <iframe id="ai-iframe" src="https://chat.deepseek.com/a/chat/s/9f9feeb8-85e5-4474-aad2-6874c0a4a662" allow="microphone; camera; clipboard-read; clipboard-write"></iframe>
-    </div>
-
     <script>
         function createHearts() {
             var container = document.getElementById('heartsContainer');
@@ -1420,24 +1320,7 @@
             var CORRECT_PASSWORD = '1234';
             var passwordTarget = '';
 
-            // Элементы для ИИ
-            var aiFullscreen = document.getElementById('ai-fullscreen');
-            var aiCloseBtn = document.getElementById('ai-close-btn');
-            var aiRefreshBtn = document.getElementById('ai-refresh-btn');
-            var aiIframe = document.getElementById('ai-iframe');
-
-            // ===== КНОПКА ОБНОВЛЕНИЯ ДЛЯ ИИ =====
-            aiRefreshBtn.addEventListener('click', function() {
-                // Перезагружаем iframe
-                aiIframe.src = aiIframe.src;
-                // Показываем уведомление (опционально)
-                aiRefreshBtn.textContent = '✅';
-                setTimeout(function() {
-                    aiRefreshBtn.textContent = '🔄';
-                }, 1500);
-            });
-
-            // ===== ОТКРЫТИЕ МОДАЛЬНОГО ОКНА ДЛЯ ИИ =====
+            // ===== КНОПКА "ИИ" - ОТКРЫТИЕ В НОВОМ ОКНЕ =====
             aiBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 passwordTarget = 'ai';
@@ -1456,7 +1339,7 @@
                 addClick();
             });
 
-            // ===== ОТКРЫТИЕ МОДАЛЬНОГО ОКНА ДЛЯ КОДА =====
+            // ===== КНОПКА "КОД" =====
             codeBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 passwordTarget = 'code';
@@ -1505,10 +1388,8 @@
                     passwordInput.value = '';
 
                     if (passwordTarget === 'ai') {
-                        // Открываем полноэкранное окно ИИ и обновляем iframe
-                        aiIframe.src = aiIframe.src;
-                        aiFullscreen.classList.add('active');
-                        document.body.style.overflow = 'hidden';
+                        // ОТКРЫВАЕМ ССЫЛКУ В НОВОМ ОКНЕ (как для WhatsApp)
+                        window.open('https://chat.deepseek.com/a/chat/s/9f9feeb8-85e5-4474-aad2-6874c0a4a662', '_blank');
                     } else if (passwordTarget === 'code') {
                         window.open('https://github.com/paraniniv18-spec/paranini18-spec.github.io', '_blank');
                     }
@@ -1534,19 +1415,6 @@
 
             passwordInput.addEventListener('input', function() {
                 this.value = this.value.replace(/\D/g, '');
-            });
-
-            // ===== ЗАКРЫТИЕ ПОЛНОЭКРАННОГО ОКНА ИИ =====
-            aiCloseBtn.addEventListener('click', function() {
-                aiFullscreen.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-
-            aiFullscreen.addEventListener('click', function(e) {
-                if (e.target === aiFullscreen) {
-                    aiFullscreen.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
             });
 
             // ===== ОСТАЛЬНАЯ ЛОГИКА (МАХ, АРХИВ, WHATSAPP) =====
@@ -1636,10 +1504,6 @@
                     }
                     if (archiveFullscreen.classList.contains('active')) {
                         archiveFullscreen.classList.remove('active');
-                        document.body.style.overflow = 'auto';
-                    }
-                    if (aiFullscreen.classList.contains('active')) {
-                        aiFullscreen.classList.remove('active');
                         document.body.style.overflow = 'auto';
                     }
                     if (modal.style.display === 'flex') {
