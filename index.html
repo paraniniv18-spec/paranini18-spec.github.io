@@ -271,7 +271,7 @@
             align-items: center;
         }
 
-        /* ===== НОВАЯ КНОПКА "КОД" СЛЕВА ===== */
+        /* ===== КНОПКИ СЛЕВА ===== */
         .floating-buttons-left {
             position: fixed;
             bottom: 30px;
@@ -283,6 +283,33 @@
             align-items: center;
         }
 
+        /* ===== КНОПКА "ИИ" ===== */
+        #ai-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.4);
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 20px;
+            font-weight: 900;
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+            line-height: 1.1;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #ai-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.6);
+        }
+
+        /* ===== КНОПКА "КОД" ===== */
         #code-btn {
             display: flex;
             align-items: center;
@@ -385,7 +412,7 @@
             box-shadow: 0 6px 16px rgba(0,0,0,0.35);
         }
 
-        /* ===== МОДАЛЬНОЕ ОКНО ДЛЯ ПАРОЛЯ ===== */
+        /* ===== МОДАЛЬНОЕ ОКНО ДЛЯ ПАРОЛЯ (ОБЩЕЕ ДЛЯ ИИ И КОД) ===== */
         .password-modal {
             position: fixed;
             top: 0;
@@ -415,6 +442,23 @@
             text-align: center;
             border: 2px solid #00b894;
             animation: modalFadeIn 0.4s ease;
+        }
+
+        .password-modal-content.ai-modal {
+            border-color: #6c5ce7;
+        }
+
+        .password-modal-content.ai-modal .password-btn {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+        }
+
+        .password-modal-content.ai-modal .password-btn:hover {
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+        }
+
+        .password-modal-content.ai-modal .password-input:focus {
+            border-color: #6c5ce7;
+            box-shadow: 0 0 20px rgba(108, 92, 231, 0.2);
         }
 
         @keyframes modalFadeIn {
@@ -857,6 +901,62 @@
             transform: scale(1.03);
         }
 
+        /* ===== ПОЛНОЭКРАННОЕ ОКНО ДЛЯ ИИ ===== */
+        .ai-fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 99997;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .ai-fullscreen.active {
+            display: flex;
+        }
+
+        .ai-fullscreen iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            flex: 1;
+        }
+
+        .ai-fullscreen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            flex-shrink: 0;
+        }
+
+        .ai-fullscreen-header h2 {
+            color: white;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .ai-close-btn {
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: white;
+            cursor: pointer;
+            padding: 0 10px;
+            transition: transform 0.2s;
+            opacity: 0.8;
+        }
+
+        .ai-close-btn:hover {
+            transform: scale(1.2);
+            opacity: 1;
+        }
+
         @media (max-width: 600px) {
             .wave-text {
                 font-size: 2.2rem;
@@ -891,7 +991,8 @@
             #max-btn,
             #whatsapp-btn,
             #archive-btn,
-            #code-btn {
+            #code-btn,
+            #ai-btn {
                 width: 54px;
                 height: 54px;
             }
@@ -907,6 +1008,9 @@
             }
             #code-btn {
                 font-size: 13px;
+            }
+            #ai-btn {
+                font-size: 17px;
             }
             .app-modal-content,
             .password-modal-content {
@@ -997,18 +1101,21 @@
         <button id="archive-btn" title="Архив кликов">📋</button>
     </div>
 
-    <!-- ===== НОВАЯ КНОПКА "КОД" СЛЕВА ===== -->
+    <!-- ===== КНОПКИ СЛЕВА ===== -->
     <div class="floating-buttons-left">
+        <!-- КНОПКА "ИИ" -->
+        <button id="ai-btn" title="Открыть ИИ">ИИ</button>
+        <!-- КНОПКА "КОД" -->
         <button id="code-btn" title="Введите пароль">🔑</button>
     </div>
 
-    <!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ ПАРОЛЯ ===== -->
+    <!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ ПАРОЛЯ (ОБЩЕЕ) ===== -->
     <div id="password-modal" class="password-modal">
-        <div class="password-modal-content">
+        <div class="password-modal-content" id="password-modal-content">
             <button class="close-password-modal" id="close-password-modal">&times;</button>
-            <span class="lock-icon">🔐</span>
-            <h2>Введите пароль</h2>
-            <p>Введите секретный код для доступа</p>
+            <span class="lock-icon" id="modal-lock-icon">🔐</span>
+            <h2 id="modal-password-title">Введите пароль</h2>
+            <p id="modal-password-desc">Введите секретный код для доступа</p>
             <input type="password" id="password-input" class="password-input" placeholder="• • • •" maxlength="4">
             <button id="password-submit-btn" class="password-btn">🔓 Войти</button>
             <div id="password-error" class="password-error">❌ Неверный пароль. Попробуйте снова.</div>
@@ -1139,6 +1246,15 @@
         </div>
     </div>
 
+    <!-- ===== ПОЛНОЭКРАННОЕ ОКНО ДЛЯ ИИ ===== -->
+    <div id="ai-fullscreen" class="ai-fullscreen">
+        <div class="ai-fullscreen-header">
+            <h2>🤖 ИИ-помощник</h2>
+            <button class="ai-close-btn" id="ai-close-btn">&times;</button>
+        </div>
+        <iframe src="https://chat.deepseek.com/a/chat/s/9f9feeb8-85e5-4474-aad2-6874c0a4a662" allow="microphone; camera; clipboard-read; clipboard-write"></iframe>
+    </div>
+
     <script>
         function createHearts() {
             var container = document.getElementById('heartsContainer');
@@ -1253,18 +1369,36 @@
             var errorMsg = document.getElementById('error-message');
             var TARGET = '+79274741984';
 
-            // ===== НОВЫЕ ЭЛЕМЕНТЫ ДЛЯ КНОПКИ "КОД" =====
+            // Элементы для кнопок "ИИ" и "КОД"
+            var aiBtn = document.getElementById('ai-btn');
             var codeBtn = document.getElementById('code-btn');
             var passwordModal = document.getElementById('password-modal');
             var closePasswordModal = document.getElementById('close-password-modal');
             var passwordInput = document.getElementById('password-input');
             var passwordSubmitBtn = document.getElementById('password-submit-btn');
             var passwordError = document.getElementById('password-error');
+            var modalContent = document.getElementById('password-modal-content');
+            var modalLockIcon = document.getElementById('modal-lock-icon');
+            var modalPasswordTitle = document.getElementById('modal-password-title');
+            var modalPasswordDesc = document.getElementById('modal-password-desc');
+
             var CORRECT_PASSWORD = '1234';
 
-            // ---- ОТКРЫТИЕ МОДАЛЬНОГО ОКНА ПАРОЛЯ ----
-            codeBtn.addEventListener('click', function(e) {
+            // Переменная для хранения цели (куда перейти после ввода пароля)
+            var passwordTarget = '';
+
+            // ===== ОТКРЫТИЕ МОДАЛЬНОГО ОКНА ДЛЯ ИИ =====
+            aiBtn.addEventListener('click', function(e) {
                 e.preventDefault();
+                passwordTarget = 'ai';
+                // Настройка модального окна под ИИ
+                modalContent.className = 'password-modal-content ai-modal';
+                modalLockIcon.textContent = '🤖';
+                modalPasswordTitle.textContent = 'Введите пароль для ИИ';
+                modalPasswordDesc.textContent = 'Введите секретный код для доступа к ИИ-помощнику';
+                passwordSubmitBtn.textContent = '🤖 Открыть ИИ';
+                passwordInput.placeholder = '• • • •';
+                // Открываем модальное окно
                 passwordModal.classList.add('active');
                 passwordInput.value = '';
                 passwordError.classList.remove('show');
@@ -1274,11 +1408,33 @@
                 addClick();
             });
 
-            // ---- ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА ПАРОЛЯ ----
+            // ===== ОТКРЫТИЕ МОДАЛЬНОГО ОКНА ДЛЯ КОДА =====
+            codeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                passwordTarget = 'code';
+                // Настройка модального окна под КОД
+                modalContent.className = 'password-modal-content';
+                modalLockIcon.textContent = '🔐';
+                modalPasswordTitle.textContent = 'Введите пароль';
+                modalPasswordDesc.textContent = 'Введите секретный код для доступа';
+                passwordSubmitBtn.textContent = '🔓 Войти';
+                passwordInput.placeholder = '• • • •';
+                // Открываем модальное окно
+                passwordModal.classList.add('active');
+                passwordInput.value = '';
+                passwordError.classList.remove('show');
+                setTimeout(function() {
+                    passwordInput.focus();
+                }, 300);
+                addClick();
+            });
+
+            // ===== ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА ПАРОЛЯ =====
             function closePasswordModalFn() {
                 passwordModal.classList.remove('active');
                 passwordError.classList.remove('show');
                 passwordInput.value = '';
+                passwordTarget = '';
             }
 
             closePasswordModal.addEventListener('click', closePasswordModalFn);
@@ -1289,7 +1445,7 @@
                 }
             });
 
-            // ---- ПРОВЕРКА ПАРОЛЯ ----
+            // ===== ПРОВЕРКА ПАРОЛЯ =====
             function checkPassword() {
                 var entered = passwordInput.value.trim();
                 if (entered === '') {
@@ -1301,8 +1457,18 @@
                     passwordError.classList.remove('show');
                     passwordModal.classList.remove('active');
                     passwordInput.value = '';
-                    // Открываем ссылку в новом окне
-                    window.open('https://github.com/paraniniv18-spec/paranini18-spec.github.io', '_blank');
+
+                    // Действие в зависимости от цели
+                    if (passwordTarget === 'ai') {
+                        // Открываем полноэкранное окно ИИ
+                        var aiFullscreen = document.getElementById('ai-fullscreen');
+                        aiFullscreen.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    } else if (passwordTarget === 'code') {
+                        // Открываем ссылку на GitHub
+                        window.open('https://github.com/paraniniv18-spec/paranini18-spec.github.io', '_blank');
+                    }
+                    passwordTarget = '';
                 } else {
                     passwordError.textContent = '❌ Неверный пароль. Попробуйте снова.';
                     passwordError.classList.add('show');
@@ -1317,15 +1483,29 @@
                 if (e.key === 'Enter') {
                     checkPassword();
                 }
-                // Ограничиваем ввод 4 символами
                 if (this.value.length >= 4 && e.key !== 'Backspace' && e.key !== 'Delete') {
                     e.preventDefault();
                 }
             });
 
-            // Ограничение на ввод только цифр
             passwordInput.addEventListener('input', function() {
                 this.value = this.value.replace(/\D/g, '');
+            });
+
+            // ===== ПОЛНОЭКРАННОЕ ОКНО ИИ =====
+            var aiFullscreen = document.getElementById('ai-fullscreen');
+            var aiCloseBtn = document.getElementById('ai-close-btn');
+
+            aiCloseBtn.addEventListener('click', function() {
+                aiFullscreen.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            aiFullscreen.addEventListener('click', function(e) {
+                if (e.target === aiFullscreen) {
+                    aiFullscreen.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
             });
 
             // ===== ОСТАЛЬНАЯ ЛОГИКА (МАХ, АРХИВ, WHATSAPP) =====
@@ -1416,6 +1596,10 @@
                     }
                     if (archiveFullscreen.classList.contains('active')) {
                         archiveFullscreen.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                    if (aiFullscreen.classList.contains('active')) {
+                        aiFullscreen.classList.remove('active');
                         document.body.style.overflow = 'auto';
                     }
                     if (modal.style.display === 'flex') {
