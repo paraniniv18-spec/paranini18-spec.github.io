@@ -90,6 +90,7 @@
             margin-bottom: 25px;
         }
 
+        /* ===== БЛОК С ЗОЛОТЫМИ ЗВЁЗДАМИ ===== */
         .vacation-block {
             position: relative;
             width: 100%;
@@ -145,19 +146,14 @@
             text-align: center;
             letter-spacing: 5px;
             font-family: 'Arial Black', 'Segoe UI', sans-serif;
-            background: linear-gradient(180deg, #ffd700 0%, #ffed4a 40%, #ffb800 70%, #ffd700 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: none;
-            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
+            color: #ffd700;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.5), 0 0 90px rgba(255, 215, 0, 0.3);
             padding: 10px;
         }
 
         .wave-text span {
             display: inline-block;
             animation: letterWave 2.5s ease-in-out infinite;
-            -webkit-text-fill-color: transparent;
         }
 
         .wave-text span:nth-child(1) { animation-delay: 0.0s; }
@@ -180,10 +176,10 @@
                 transform: translateY(0px) rotate(0deg);
             }
             25% {
-                transform: translateY(-15px) rotate(3deg);
+                transform: translateY(-20px) rotate(5deg);
             }
             75% {
-                transform: translateY(15px) rotate(-3deg);
+                transform: translateY(20px) rotate(-5deg);
             }
         }
 
@@ -759,6 +755,7 @@
 
         <p style="font-size:1.1rem; margin-bottom:5px;">📚 Я учусь создавать сайты с нуля!</p>
 
+        <!-- БЛОК С ТЕКСТОМ "УРА, ОТПУСК!!!" -->
         <div class="vacation-block">
             <div class="stars-container" id="starsContainer"></div>
             <div class="wave-text">
