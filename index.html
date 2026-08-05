@@ -72,6 +72,10 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
+        .card:hover {
+            transform: translateY(-5px) scale(1.005);
+        }
+
         h1 {
             font-size: 2.4rem;
             margin-bottom: 5px;
@@ -92,7 +96,7 @@
             min-height: 200px;
             border-radius: 20px;
             margin: 15px 0 25px;
-            background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #1a0a2e 100%);
+            background: linear-gradient(135deg, #0a0015 0%, #1a0a2e 50%, #0a0015 100%);
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -110,6 +114,7 @@
             height: 100%;
             pointer-events: none;
             overflow: hidden;
+            z-index: 1;
         }
 
         .star {
@@ -118,16 +123,17 @@
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.5);
             animation: twinkle 2s ease-in-out infinite alternate;
             user-select: none;
+            z-index: 1;
         }
 
         @keyframes twinkle {
             0% {
-                opacity: 0.3;
-                transform: scale(0.8);
+                opacity: 0.2;
+                transform: scale(0.7);
             }
             100% {
                 opacity: 1;
-                transform: scale(1.2);
+                transform: scale(1.3);
             }
         }
 
@@ -139,16 +145,19 @@
             text-align: center;
             letter-spacing: 5px;
             font-family: 'Arial Black', 'Segoe UI', sans-serif;
-            background: linear-gradient(180deg, #ffd700 0%, #ffed4a 50%, #ffd700 100%);
+            background: linear-gradient(180deg, #ffd700 0%, #ffed4a 40%, #ffb800 70%, #ffd700 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+            text-shadow: none;
+            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
+            padding: 10px;
         }
 
         .wave-text span {
             display: inline-block;
             animation: letterWave 2.5s ease-in-out infinite;
+            -webkit-text-fill-color: transparent;
         }
 
         .wave-text span:nth-child(1) { animation-delay: 0.0s; }
@@ -171,10 +180,10 @@
                 transform: translateY(0px) rotate(0deg);
             }
             25% {
-                transform: translateY(-20px) rotate(5deg);
+                transform: translateY(-15px) rotate(3deg);
             }
             75% {
-                transform: translateY(20px) rotate(-5deg);
+                transform: translateY(15px) rotate(-3deg);
             }
         }
 
@@ -265,6 +274,7 @@
             font-family: 'Segoe UI', sans-serif;
             text-align: center;
             line-height: 1.1;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         #max-btn:hover {
@@ -283,6 +293,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.25);
             border: none;
             cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         #whatsapp-btn:hover {
@@ -312,6 +323,7 @@
             font-family: 'Segoe UI', sans-serif;
             text-align: center;
             line-height: 1.1;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         #archive-btn:hover {
@@ -456,6 +468,7 @@
             color: #ff6b00;
             cursor: pointer;
             padding: 0 10px;
+            transition: transform 0.2s;
         }
 
         .max-close-btn:hover {
@@ -484,6 +497,10 @@
             margin-bottom: 8px;
         }
 
+        .max-day strong {
+            color: #1a1a1a;
+        }
+
         .max-day .place {
             background: #f8f4f0;
             padding: 10px 15px;
@@ -500,6 +517,19 @@
 
         .max-day .place a:hover {
             text-decoration: underline;
+        }
+
+        .max-day .badge {
+            display: inline-block;
+            background: #ff6b00;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 12px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 5px;
         }
 
         .max-footer {
@@ -555,6 +585,7 @@
             color: #6c5ce7;
             cursor: pointer;
             padding: 0 10px;
+            transition: transform 0.2s;
         }
 
         .archive-close-btn:hover {
@@ -600,6 +631,10 @@
             border-bottom: none;
         }
 
+        .archive-table-wrap tr:hover td {
+            background: #f8f6ff;
+        }
+
         .archive-footer {
             text-align: center;
             padding: 25px 0 10px;
@@ -620,6 +655,7 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 10px;
+            transition: all 0.3s ease;
         }
 
         .clear-archive-btn:hover {
@@ -629,7 +665,8 @@
 
         @media (max-width: 600px) {
             .wave-text {
-                font-size: 2rem;
+                font-size: 2.2rem;
+                letter-spacing: 2px;
             }
             .vacation-block {
                 min-height: 150px;
@@ -638,7 +675,8 @@
 
         @media (max-width: 400px) {
             .wave-text {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
+                letter-spacing: 1px;
             }
             .vacation-block {
                 min-height: 120px;
@@ -770,32 +808,93 @@
             <h1>🗺️ 5 дней в Москве</h1>
             <button class="max-close-btn" id="max-close-btn">&times;</button>
         </div>
+
         <div class="max-day">
             <h2>🗓️ День 1: Адреналин и городской экстрим</h2>
-            <p>Начните с ярких впечатлений!</p>
-            <div class="place"><strong>🏰 Остров мечты:</strong> Крупнейший крытый парк аттракционов в Европе.</div>
+            <p>Начните с ярких впечатлений, которые надолго запомнятся.</p>
+            <div class="place">
+                <strong>🏰 Остров мечты:</strong> Самый масштабный крытый парк развлечений в Европе — более 50 аттракционов от спокойных до экстремальных. Тематические зоны по мотивам фильмов и мультфильмов, захватывающие шоу.<br>
+                📍 пр-т Андропова, д. 1, м. «Технопарк»<br>
+                🎫 от 2100 ₽<br>
+                🔗 <a href="https://dreamisland.ru" target="_blank">dreamisland.ru</a>
+            </div>
+            <div class="place">
+                <strong>🌳 Альтернатива: парк «Сказка» в Крылатском:</strong> Экстремальные аттракционы, «Дом страха», веревочные трассы, контактный зоопарк с альпаками и хаски, дино-сафари.<br>
+                📍 ул. Крылатская, д. 18, м. «Крылатское»<br>
+                🔗 <a href="https://parkskazka.com" target="_blank">parkskazka.com</a>
+            </div>
         </div>
+
         <div class="max-day">
-            <h2>🗓️ День 2: Тайны и подземелья</h2>
-            <p>День, полный загадок.</p>
-            <div class="place"><strong>🔐 Музей криптографии:</strong> Интерактивный музей шифрования.</div>
+            <h2>🗓️ День 2: Тайны, шифры и подземелья</h2>
+            <p>День, полный загадок и исторических открытий.</p>
+            <div class="place">
+                <strong>🔐 Музей криптографии:</strong> Интерактивный музей об истории шифрования. Настоящая машина «Энигма», блокчейн, квест «Расшифруй музей» для детей от 12 лет.<br>
+                🔗 <a href="https://cryptography-museum.ru" target="_blank">cryptography-museum.ru</a>
+            </div>
+            <div class="place">
+                <strong>🕳️ «Бункер-42»:</strong> Спуск на глубину 65 метров в настоящий бункер времен Холодной войны. Интерактивные программы: сборка/разборка автомата Калашникова, «офицерский паёк».<br>
+                🔗 <a href="https://bunker42.com" target="_blank">bunker42.com</a>
+            </div>
         </div>
+
         <div class="max-day">
             <h2>🗓️ День 3: Наука и эксперименты</h2>
-            <p>Увлекательный день для всей семьи.</p>
-            <div class="place"><strong>🧪 Экспериментаниум:</strong> Более 250 экспонатов по физике и химии.</div>
+            <p>Один из самых увлекательных дней, где скучно не будет никому.</p>
+            <div class="place">
+                <strong>🧪 «Экспериментаниум»:</strong> Более 250 интерактивных экспонатов по физике и химии — всё можно трогать руками! Научные шоу с захватывающими опытами.<br>
+                📍 Ленинградский пр-т, д. 80, корп. 11, м. «Сокол»<br>
+                ⏰ 09:30 – 20:00, ежедневно<br>
+                🎫 от 850 до 1450 ₽<br>
+                🔗 <a href="https://experimentanium.ru" target="_blank">experimentanium.ru</a>
+            </div>
+            <div class="place">
+                <strong>🌌 Альтернатива: Московский Планетарий:</strong> Большой звездный зал с куполом 25 м, интерактивный музей «Лунариум» с опытами о космосе.
+            </div>
         </div>
+
         <div class="max-day">
-            <h2>🗓️ День 4: ВДНХ и активный отдых</h2>
-            <p>Огромная территория для развлечений.</p>
-            <div class="place"><strong>⚛️ Музей Атом:</strong> Познавательный музей о мирном атоме.</div>
+            <h2>🗓️ День 4: Прогулка по ВДНХ и активный отдых</h2>
+            <p>Огромная территория, где каждый найдет занятие по душе.</p>
+            <div class="place">
+                <strong>⚛️ Музей «Атом»:</strong> Познавательный музей о мирном атоме с интерактивными экспозициями.
+            </div>
+            <div class="place">
+                <strong>🚀 Музей космонавтики:</strong> У подножия монумента «Покорителям космоса». История освоения космоса, уникальные экспонаты.
+            </div>
+            <div class="place">
+                <strong>🦋 «Баттерфляриум»:</strong> Музей живых тропических бабочек — красивые фото.
+            </div>
+            <div class="place">
+                <strong>🧗 Веревочный парк SkyTown:</strong> Самый высокий веревочный парк в стране. Трассы разной сложности на высоте до 15 м над фонтанами.
+            </div>
+            <div class="place">
+                <strong>🏙️ Павильон «Макет Москвы»:</strong> Вся столица как на ладони в детализированной миниатюре.
+            </div>
+            <div class="place">
+                <strong>🏎️ Активный вечер:</strong> Батутные центры, скалодром Tokyo, картинг X-TI Pilot.
+            </div>
         </div>
+
         <div class="max-day">
-            <h2>🗓️ День 5: Парки и киностудия</h2>
-            <p>Последний день в Москве.</p>
-            <div class="place"><strong>🌳 Парк Горького:</strong> Знаковое место для прогулок.</div>
+            <h2>🗓️ День 5: Парки, киностудия и прощание с городом</h2>
+            <p>Последний день — насыщенный, но не утомительный.</p>
+            <div class="place">
+                <strong>🌳 Парк Горького:</strong> Знаковое место для прогулок, роликов, скейт-площадка. Музей современного искусства «Гараж». Вход бесплатный.
+            </div>
+            <div class="place">
+                <strong>🎬 Киностудия «Мосфильм»:</strong> За кулисы отечественного кинематографа. Старые декорации, ретро-техника, секреты съемок фильмов, включая «Вия».<br>
+                📍 ул. Мосфильмовская, д. 1<br>
+                🎫 от 780 ₽
+            </div>
+            <div class="place">
+                <strong>🏙️ На прощание: PANORAMA360</strong> в башне «Федерация» в Москва-Сити — вид с высоты 89-го этажа.
+            </div>
         </div>
-        <div class="max-footer">❤️ Отличного отпуска, Оксана! ❤️</div>
+
+        <div class="max-footer">
+            ❤️ Отличного отпуска, Оксана! ❤️
+        </div>
     </div>
 
     <div id="archive-fullscreen" class="archive-fullscreen">
@@ -817,9 +916,7 @@
     </div>
 
     <script>
-        // ===== ВСЕ ФУНКЦИИ =====
-
-        // 1. Сердечки
+        // Сердечки
         function createHearts() {
             var container = document.getElementById('heartsContainer');
             var symbols = ['❤️', '💕', '💖', '💗', '💘', '❤️‍🔥', '💝'];
@@ -836,11 +933,11 @@
             }
         }
 
-        // 2. Звёзды
+        // Звёзды
         function createStars() {
             var container = document.getElementById('starsContainer');
-            var starSizes = ['⭐', '✨', '🌟', '⭐', '✨'];
-            for (var i = 0; i < 25; i++) {
+            var starSizes = ['⭐', '✨', '🌟'];
+            for (var i = 0; i < 30; i++) {
                 var el = document.createElement('div');
                 el.className = 'star';
                 el.textContent = starSizes[Math.floor(Math.random() * starSizes.length)];
@@ -854,7 +951,7 @@
             }
         }
 
-        // 3. Секретная кнопка
+        // Секретная кнопка
         function toggleSecret() {
             var block = document.getElementById('secret');
             block.classList.toggle('show');
@@ -865,7 +962,7 @@
             }
         }
 
-        // 4. Архив
+        // Архив
         function getArchive() {
             var data = localStorage.getItem('clickArchive');
             return data ? JSON.parse(data) : [];
@@ -916,9 +1013,8 @@
             }
         }
 
-        // ===== ЗАПУСК ВСЕГО =====
+        // Запуск
         document.addEventListener('DOMContentLoaded', function() {
-            // Создаём сердечки и звёзды
             createHearts();
             createStars();
 
@@ -938,7 +1034,7 @@
             var errorMsg = document.getElementById('error-message');
             var TARGET = '+79274741984';
 
-            // МАХ - открыть
+            // МАХ
             maxBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 maxFullscreen.classList.add('active');
@@ -946,7 +1042,6 @@
                 addClick();
             });
 
-            // МАХ - закрыть
             maxClose.addEventListener('click', function() {
                 maxFullscreen.classList.remove('active');
                 document.body.style.overflow = 'auto';
@@ -959,7 +1054,7 @@
                 }
             });
 
-            // АРХИВ - открыть
+            // АРХИВ
             archiveBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 renderArchive();
@@ -968,7 +1063,6 @@
                 addClick();
             });
 
-            // АРХИВ - закрыть
             archiveClose.addEventListener('click', function() {
                 archiveFullscreen.classList.remove('active');
                 document.body.style.overflow = 'auto';
@@ -981,7 +1075,6 @@
                 }
             });
 
-            // Очистить архив
             clearBtn.addEventListener('click', clearArchive);
 
             // WHATSAPP
@@ -994,7 +1087,6 @@
                 addClick();
             });
 
-            // Закрыть модалку
             modalClose.addEventListener('click', function() {
                 modal.style.display = 'none';
             });
@@ -1003,7 +1095,6 @@
                 if (e.target === modal) modal.style.display = 'none';
             });
 
-            // Проверка номера
             nextBtn.addEventListener('click', function() {
                 var phone = phoneInput.value.trim();
                 if (phone === '') {
@@ -1024,7 +1115,7 @@
                 if (e.key === 'Enter') nextBtn.click();
             });
 
-            // ESC для закрытия
+            // ESC
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     if (maxFullscreen.classList.contains('active')) {
