@@ -283,6 +283,44 @@
             align-items: center;
         }
 
+        /* ===== КНОПКА "ФОТО" (НОВАЯ) ===== */
+        #photo-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #e17055, #d63031);
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(214, 48, 49, 0.4);
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            font-weight: 900;
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+            line-height: 1.1;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        #photo-btn.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #photo-btn.active:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(214, 48, 49, 0.6);
+        }
+
+        #photo-btn.inactive {
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
         /* ===== КНОПКА "ИИ" ===== */
         #ai-btn {
             display: flex;
@@ -459,6 +497,24 @@
         .password-modal-content.ai-modal .password-input:focus {
             border-color: #6c5ce7;
             box-shadow: 0 0 20px rgba(108, 92, 231, 0.2);
+        }
+
+        /* Стили для модального окна "Фото" */
+        .password-modal-content.photo-modal {
+            border-color: #e17055;
+        }
+
+        .password-modal-content.photo-modal .password-btn {
+            background: linear-gradient(135deg, #e17055, #d63031);
+        }
+
+        .password-modal-content.photo-modal .password-btn:hover {
+            box-shadow: 0 8px 25px rgba(214, 48, 49, 0.4);
+        }
+
+        .password-modal-content.photo-modal .password-input:focus {
+            border-color: #e17055;
+            box-shadow: 0 0 20px rgba(214, 48, 49, 0.2);
         }
 
         @keyframes modalFadeIn {
@@ -901,6 +957,245 @@
             transform: scale(1.03);
         }
 
+        /* ===== ПОЛНОЭКРАННАЯ ГАЛЕРЕЯ "МОИ ФОТО" ===== */
+        .photo-fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            z-index: 99997;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .photo-fullscreen.active {
+            display: flex;
+        }
+
+        .photo-fullscreen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: rgba(0, 0, 0, 0.8);
+            flex-shrink: 0;
+            z-index: 10;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .photo-fullscreen-header h2 {
+            color: white;
+            font-size: 1.2rem;
+            margin: 0;
+            flex: 1;
+        }
+
+        .photo-header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .photo-add-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px dashed rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .photo-add-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .photo-close-btn {
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: white;
+            cursor: pointer;
+            padding: 0 10px;
+            transition: transform 0.2s;
+            opacity: 0.8;
+        }
+
+        .photo-close-btn:hover {
+            transform: scale(1.2);
+            opacity: 1;
+        }
+
+        /* Скрытый input для выбора фото */
+        #photo-file-input {
+            display: none;
+        }
+
+        .photo-grid {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            align-content: start;
+        }
+
+        .photo-item {
+            position: relative;
+            padding-bottom: 100%;
+            background: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.02);
+        }
+
+        .photo-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Кнопка удаления фото */
+        .photo-delete-btn {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 14px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 5;
+            line-height: 1;
+        }
+
+        .photo-item:hover .photo-delete-btn {
+            display: flex;
+        }
+
+        .photo-delete-btn:hover {
+            background: #e74c3c;
+            transform: scale(1.1);
+        }
+
+        .photo-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #666;
+            padding: 60px 20px;
+            font-size: 1.1rem;
+        }
+
+        .photo-empty .big-icon {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .photo-empty .hint {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        /* ===== ПРОСМОТР ФОТО НА ВЕСЬ ЭКРАН ===== */
+        .photo-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 99998;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .photo-viewer.active {
+            display: flex;
+        }
+
+        .photo-viewer img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .photo-viewer-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 36px;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .photo-viewer-close:hover {
+            opacity: 1;
+        }
+
+        /* ===== ПОДСКАЗКА ДЛЯ НЕАКТИВНОЙ КНОПКИ ===== */
+        .photo-tooltip {
+            display: none;
+            position: absolute;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .floating-buttons-left .photo-wrapper {
+            position: relative;
+        }
+
+        .photo-wrapper:hover .photo-tooltip {
+            display: block;
+        }
+
         @media (max-width: 600px) {
             .wave-text {
                 font-size: 2.2rem;
@@ -908,6 +1203,21 @@
             }
             .vacation-block {
                 min-height: 150px;
+            }
+            .photo-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 5px;
+                padding: 5px;
+            }
+            .photo-fullscreen-header {
+                padding: 10px 15px;
+            }
+            .photo-fullscreen-header h2 {
+                font-size: 1rem;
+            }
+            .photo-add-btn {
+                font-size: 0.75rem;
+                padding: 4px 12px;
             }
         }
 
@@ -918,6 +1228,15 @@
             }
             .vacation-block {
                 min-height: 120px;
+            }
+            .photo-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 4px;
+                padding: 4px;
+            }
+            .photo-add-btn {
+                font-size: 0.7rem;
+                padding: 3px 10px;
             }
         }
 
@@ -936,7 +1255,8 @@
             #whatsapp-btn,
             #archive-btn,
             #code-btn,
-            #ai-btn {
+            #ai-btn,
+            #photo-btn {
                 width: 54px;
                 height: 54px;
             }
@@ -955,6 +1275,9 @@
             }
             #ai-btn {
                 font-size: 17px;
+            }
+            #photo-btn {
+                font-size: 15px;
             }
             .app-modal-content,
             .password-modal-content {
@@ -982,6 +1305,23 @@
                 padding: 10px 12px;
                 font-size: 0.85rem;
             }
+            .photo-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 4px;
+                padding: 4px;
+            }
+            .photo-fullscreen-header h2 {
+                font-size: 0.9rem;
+            }
+            .photo-add-btn {
+                font-size: 0.7rem;
+                padding: 3px 10px;
+            }
+            .photo-delete-btn {
+                width: 20px;
+                height: 20px;
+                font-size: 12px;
+            }
         }
 
         @media (max-width: 500px) {
@@ -997,6 +1337,24 @@
                 text-align: center;
                 font-size: 1rem;
                 padding: 14px 20px;
+            }
+        }
+
+        /* Стили для больших экранов (ПК, ноутбуки) - кнопка Фото неактивна */
+        @media (min-width: 769px) {
+            #photo-btn {
+                opacity: 0.3 !important;
+                pointer-events: none !important;
+            }
+            #photo-btn::after {
+                content: "📱";
+                position: absolute;
+                font-size: 14px;
+                top: -5px;
+                right: -5px;
+                background: rgba(0,0,0,0.7);
+                border-radius: 50%;
+                padding: 2px 4px;
             }
         }
     </style>
@@ -1047,6 +1405,11 @@
 
     <!-- ===== КНОПКИ СЛЕВА ===== -->
     <div class="floating-buttons-left">
+        <!-- КНОПКА "ФОТО" (НОВАЯ) -->
+        <div class="photo-wrapper">
+            <button id="photo-btn" title="Мои фото">📷</button>
+            <span class="photo-tooltip">📱 Только на телефоне</span>
+        </div>
         <!-- КНОПКА "ИИ" -->
         <button id="ai-btn" title="Открыть ИИ">ИИ</button>
         <!-- КНОПКА "КОД" -->
@@ -1190,6 +1553,26 @@
         </div>
     </div>
 
+    <!-- ===== ПОЛНОЭКРАННАЯ ГАЛЕРЕЯ "МОИ ФОТО" ===== -->
+    <div id="photo-fullscreen" class="photo-fullscreen">
+        <div class="photo-fullscreen-header">
+            <h2 id="photo-title">📷 Мои фото</h2>
+            <div class="photo-header-actions">
+                <button class="photo-add-btn" id="photo-add-btn">➕ Добавить фото</button>
+                <button class="photo-close-btn" id="photo-close-btn">&times;</button>
+            </div>
+        </div>
+        <!-- Скрытый input для выбора фото -->
+        <input type="file" id="photo-file-input" accept="image/*" multiple>
+        <div class="photo-grid" id="photo-grid"></div>
+    </div>
+
+    <!-- ===== ПРОСМОТР ФОТО НА ВЕСЬ ЭКРАН ===== -->
+    <div id="photo-viewer" class="photo-viewer">
+        <button class="photo-viewer-close" id="photo-viewer-close">&times;</button>
+        <img id="photo-viewer-img" src="" alt="Фото">
+    </div>
+
     <script>
         function createHearts() {
             var container = document.getElementById('heartsContainer');
@@ -1284,9 +1667,221 @@
             }
         }
 
+        // ===== ФУНКЦИИ ДЛЯ РАБОТЫ С ФОТО (СОХРАНЕНИЕ В localStorage) =====
+        function getStoredPhotos(phone) {
+            var key = 'photos_' + phone;
+            var data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveStoredPhotos(phone, photos) {
+            var key = 'photos_' + phone;
+            localStorage.setItem(key, JSON.stringify(photos));
+        }
+
+        function addPhotoToStorage(phone, photoData) {
+            var photos = getStoredPhotos(phone);
+            photos.push(photoData);
+            saveStoredPhotos(phone, photos);
+            return photos;
+        }
+
+        function deletePhotoFromStorage(phone, index) {
+            var photos = getStoredPhotos(phone);
+            if (index >= 0 && index < photos.length) {
+                photos.splice(index, 1);
+                saveStoredPhotos(phone, photos);
+            }
+            return photos;
+        }
+
+        // ===== ДЕМОНСТРАЦИОННЫЕ ФОТО (ЗАГЛУШКИ) =====
+        function getDefaultPhotos(phone) {
+            var basePhotos = [
+                'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=400&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1470071459604-7b3ec9ce3f3b?w=400&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=400&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1470071459604-7b3ec9ce3f3b?w=400&h=400&fit=crop'
+            ];
+
+            if (phone === '+79869163166') {
+                return basePhotos.slice(0, 8);
+            } else if (phone === '+79274741984') {
+                return basePhotos.slice(4, 12);
+            }
+            return basePhotos.slice(0, 6);
+        }
+
+        // ===== ОТКРЫТИЕ ГАЛЕРЕИ =====
+        var currentPhone = '';
+
+        function openPhotoGallery(phone) {
+            currentPhone = phone;
+            var fullscreen = document.getElementById('photo-fullscreen');
+            var grid = document.getElementById('photo-grid');
+            var title = document.getElementById('photo-title');
+
+            var name = phone === '+79869163166' ? 'Оксана' : 'Иван';
+            title.textContent = '📷 Мои фото (' + name + ')';
+
+            renderPhotoGrid(phone);
+            fullscreen.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function renderPhotoGrid(phone) {
+            var grid = document.getElementById('photo-grid');
+            var photos = getStoredPhotos(phone);
+
+            // Если нет сохранённых фото — добавляем дефолтные
+            if (photos.length === 0) {
+                var defaultPhotos = getDefaultPhotos(phone);
+                defaultPhotos.forEach(function(url) {
+                    addPhotoToStorage(phone, { url: url, isDefault: true });
+                });
+                photos = getStoredPhotos(phone);
+            }
+
+            grid.innerHTML = '';
+
+            if (photos.length === 0) {
+                grid.innerHTML = '<div class="photo-empty"><span class="big-icon">📭</span>Нет фото<br><span class="hint">Нажмите «Добавить фото», чтобы загрузить снимки из галереи</span></div>';
+                return;
+            }
+
+            photos.forEach(function(photo, index) {
+                var item = document.createElement('div');
+                item.className = 'photo-item';
+
+                var img = document.createElement('img');
+                img.src = photo.url;
+                img.alt = 'Фото ' + (index + 1);
+                img.loading = 'lazy';
+
+                // Кнопка удаления
+                var deleteBtn = document.createElement('button');
+                deleteBtn.className = 'photo-delete-btn';
+                deleteBtn.textContent = '✕';
+                deleteBtn.title = 'Удалить фото';
+                deleteBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (confirm('Удалить это фото?')) {
+                        deletePhotoFromStorage(phone, index);
+                        renderPhotoGrid(phone);
+                    }
+                });
+
+                item.appendChild(img);
+                item.appendChild(deleteBtn);
+
+                // При клике на фото — открываем на весь экран
+                item.addEventListener('click', function() {
+                    openPhotoViewer(photo.url);
+                });
+
+                grid.appendChild(item);
+            });
+        }
+
+        // ===== ДОБАВЛЕНИЕ ФОТО =====
+        function addPhotosFromDevice() {
+            var fileInput = document.getElementById('photo-file-input');
+            fileInput.click();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var fileInput = document.getElementById('photo-file-input');
+
+            fileInput.addEventListener('change', function(event) {
+                var files = event.target.files;
+                if (files.length === 0) return;
+
+                var loadedCount = 0;
+                var totalFiles = files.length;
+
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        var photoData = {
+                            url: e.target.result,
+                            isDefault: false
+                        };
+                        addPhotoToStorage(currentPhone, photoData);
+                        loadedCount++;
+
+                        if (loadedCount === totalFiles) {
+                            renderPhotoGrid(currentPhone);
+                            fileInput.value = '';
+                        }
+                    };
+
+                    reader.onerror = function() {
+                        loadedCount++;
+                        if (loadedCount === totalFiles) {
+                            renderPhotoGrid(currentPhone);
+                            fileInput.value = '';
+                        }
+                    };
+
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+        // ===== ПРОСМОТР ФОТО НА ВЕСЬ ЭКРАН =====
+        function openPhotoViewer(url) {
+            var viewer = document.getElementById('photo-viewer');
+            var viewerImg = document.getElementById('photo-viewer-img');
+            viewerImg.src = url;
+            viewer.classList.add('active');
+        }
+
+        function closePhotoViewer() {
+            var viewer = document.getElementById('photo-viewer');
+            viewer.classList.remove('active');
+            var viewerImg = document.getElementById('photo-viewer-img');
+            viewerImg.src = '';
+        }
+
+        // ===== ОСНОВНАЯ ЛОГИКА =====
         document.addEventListener('DOMContentLoaded', function() {
             createHearts();
             createStars();
+
+            // ===== ПРОВЕРКА УСТРОЙСТВА =====
+            function isMobile() {
+                var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+                var isSmallScreen = window.innerWidth <= 768;
+                var isMobileUA = /Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|Opera Mini|IEMobile/i.test(navigator.userAgent);
+                return (isTouchDevice && isSmallScreen) || isMobileUA;
+            }
+
+            // ===== НАСТРОЙКА КНОПКИ "ФОТО" =====
+            var photoBtn = document.getElementById('photo-btn');
+
+            function updatePhotoButton() {
+                if (isMobile()) {
+                    photoBtn.classList.add('active');
+                    photoBtn.classList.remove('inactive');
+                } else {
+                    photoBtn.classList.add('inactive');
+                    photoBtn.classList.remove('active');
+                }
+            }
+
+            updatePhotoButton();
+
+            window.addEventListener('resize', updatePhotoButton);
 
             // Элементы для правых кнопок
             var maxBtn = document.getElementById('max-btn');
@@ -1304,7 +1899,8 @@
             var errorMsg = document.getElementById('error-message');
             var TARGET = '+79274741984';
 
-            // Элементы для кнопок "ИИ" и "КОД"
+            // Элементы для кнопок "Фото", "ИИ" и "КОД"
+            var photoBtn = document.getElementById('photo-btn');
             var aiBtn = document.getElementById('ai-btn');
             var codeBtn = document.getElementById('code-btn');
             var passwordModal = document.getElementById('password-modal');
@@ -1320,7 +1916,66 @@
             var CORRECT_PASSWORD = '1234';
             var passwordTarget = '';
 
-            // ===== КНОПКА "ИИ" - ОТКРЫТИЕ В НОВОМ ОКНЕ =====
+            // Элементы для фото
+            var photoFullscreen = document.getElementById('photo-fullscreen');
+            var photoCloseBtn = document.getElementById('photo-close-btn');
+            var photoAddBtn = document.getElementById('photo-add-btn');
+            var photoViewer = document.getElementById('photo-viewer');
+            var photoViewerClose = document.getElementById('photo-viewer-close');
+
+            // ===== ЗАКРЫТИЕ ГАЛЕРЕИ =====
+            photoCloseBtn.addEventListener('click', function() {
+                photoFullscreen.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            photoFullscreen.addEventListener('click', function(e) {
+                if (e.target === photoFullscreen) {
+                    photoFullscreen.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // ===== ДОБАВЛЕНИЕ ФОТО =====
+            photoAddBtn.addEventListener('click', function() {
+                if (currentPhone) {
+                    addPhotosFromDevice();
+                }
+            });
+
+            // ===== ЗАКРЫТИЕ ПРОСМОТРА ФОТО =====
+            photoViewerClose.addEventListener('click', closePhotoViewer);
+            photoViewer.addEventListener('click', function(e) {
+                if (e.target === photoViewer) {
+                    closePhotoViewer();
+                }
+            });
+
+            // ===== КНОПКА "ФОТО" =====
+            photoBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!isMobile()) {
+                    return;
+                }
+                passwordTarget = 'photo';
+                modalContent.className = 'password-modal-content photo-modal';
+                modalLockIcon.textContent = '📷';
+                modalPasswordTitle.textContent = 'Введите номер телефона';
+                modalPasswordDesc.textContent = 'Введите номер, привязанный к фото';
+                passwordSubmitBtn.textContent = '📷 Открыть фото';
+                passwordInput.placeholder = '+7 • • • • • • • • • •';
+                passwordInput.type = 'text';
+                passwordInput.maxLength = 12;
+                passwordInput.value = '';
+                passwordError.classList.remove('show');
+                passwordModal.classList.add('active');
+                setTimeout(function() {
+                    passwordInput.focus();
+                }, 300);
+                addClick();
+            });
+
+            // ===== КНОПКА "ИИ" =====
             aiBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 passwordTarget = 'ai';
@@ -1330,9 +1985,11 @@
                 modalPasswordDesc.textContent = 'Введите секретный код для доступа к ИИ-помощнику';
                 passwordSubmitBtn.textContent = '🤖 Открыть ИИ';
                 passwordInput.placeholder = '• • • •';
-                passwordModal.classList.add('active');
+                passwordInput.type = 'password';
+                passwordInput.maxLength = 4;
                 passwordInput.value = '';
                 passwordError.classList.remove('show');
+                passwordModal.classList.add('active');
                 setTimeout(function() {
                     passwordInput.focus();
                 }, 300);
@@ -1349,9 +2006,11 @@
                 modalPasswordDesc.textContent = 'Введите секретный код для доступа';
                 passwordSubmitBtn.textContent = '🔓 Войти';
                 passwordInput.placeholder = '• • • •';
-                passwordModal.classList.add('active');
+                passwordInput.type = 'password';
+                passwordInput.maxLength = 4;
                 passwordInput.value = '';
                 passwordError.classList.remove('show');
+                passwordModal.classList.add('active');
                 setTimeout(function() {
                     passwordInput.focus();
                 }, 300);
@@ -1364,6 +2023,9 @@
                 passwordError.classList.remove('show');
                 passwordInput.value = '';
                 passwordTarget = '';
+                passwordInput.type = 'password';
+                passwordInput.maxLength = 4;
+                passwordInput.placeholder = '• • • •';
             }
 
             closePasswordModal.addEventListener('click', closePasswordModalFn);
@@ -1374,31 +2036,56 @@
                 }
             });
 
-            // ===== ПРОВЕРКА ПАРОЛЯ =====
+            // ===== ПРОВЕРКА ПАРОЛЯ / НОМЕРА =====
             function checkPassword() {
-                var entered = passwordInput.value.trim();
-                if (entered === '') {
-                    passwordError.textContent = '⚠️ Введите пароль';
+                var inputValue = passwordInput.value.trim();
+
+                if (inputValue === '') {
+                    passwordError.textContent = '⚠️ Заполните поле';
                     passwordError.classList.add('show');
                     return;
                 }
-                if (entered === CORRECT_PASSWORD) {
+
+                if (passwordTarget === 'photo') {
+                    var isValidPhone = (inputValue === '+79869163166' || inputValue === '+79274741984');
+                    if (!isValidPhone) {
+                        passwordError.textContent = '❌ Неверный номер. Доступны: +79869163166 или +79274741984';
+                        passwordError.classList.add('show');
+                        passwordInput.value = '';
+                        passwordInput.focus();
+                        return;
+                    }
                     passwordError.classList.remove('show');
                     passwordModal.classList.remove('active');
                     passwordInput.value = '';
-
-                    if (passwordTarget === 'ai') {
-                        // ОТКРЫВАЕМ ССЫЛКУ В НОВОМ ОКНЕ (как для WhatsApp)
-                        window.open('https://chat.deepseek.com/a/chat/s/9f9feeb8-85e5-4474-aad2-6874c0a4a662', '_blank');
-                    } else if (passwordTarget === 'code') {
-                        window.open('https://github.com/paraniniv18-spec/paranini18-spec.github.io', '_blank');
-                    }
+                    openPhotoGallery(inputValue);
                     passwordTarget = '';
-                } else {
-                    passwordError.textContent = '❌ Неверный пароль. Попробуйте снова.';
-                    passwordError.classList.add('show');
+                } else if (passwordTarget === 'ai') {
+                    if (inputValue !== CORRECT_PASSWORD) {
+                        passwordError.textContent = '❌ Неверный пароль. Попробуйте снова.';
+                        passwordError.classList.add('show');
+                        passwordInput.value = '';
+                        passwordInput.focus();
+                        return;
+                    }
+                    passwordError.classList.remove('show');
+                    passwordModal.classList.remove('active');
                     passwordInput.value = '';
-                    passwordInput.focus();
+                    window.open('https://chat.deepseek.com/a/chat/s/9f9feeb8-85e5-4474-aad2-6874c0a4a662', '_blank');
+                    passwordTarget = '';
+                } else if (passwordTarget === 'code') {
+                    if (inputValue !== CORRECT_PASSWORD) {
+                        passwordError.textContent = '❌ Неверный пароль. Попробуйте снова.';
+                        passwordError.classList.add('show');
+                        passwordInput.value = '';
+                        passwordInput.focus();
+                        return;
+                    }
+                    passwordError.classList.remove('show');
+                    passwordModal.classList.remove('active');
+                    passwordInput.value = '';
+                    window.open('https://github.com/paraniniv18-spec/paranini18-spec.github.io', '_blank');
+                    passwordTarget = '';
                 }
             }
 
@@ -1408,13 +2095,22 @@
                 if (e.key === 'Enter') {
                     checkPassword();
                 }
-                if (this.value.length >= 4 && e.key !== 'Backspace' && e.key !== 'Delete') {
+                if (passwordTarget !== 'photo' && this.value.length >= 4 && e.key !== 'Backspace' && e.key !== 'Delete') {
                     e.preventDefault();
                 }
             });
 
             passwordInput.addEventListener('input', function() {
-                this.value = this.value.replace(/\D/g, '');
+                if (passwordTarget === 'photo') {
+                    if (this.value.length === 0) {
+                        this.value = '+7';
+                    } else if (this.value.length === 1 && this.value[0] !== '+') {
+                        this.value = '+7' + this.value;
+                    }
+                    this.value = this.value.replace(/[^+\d]/g, '');
+                } else {
+                    this.value = this.value.replace(/\D/g, '');
+                }
             });
 
             // ===== ОСТАЛЬНАЯ ЛОГИКА (МАХ, АРХИВ, WHATSAPP) =====
@@ -1505,6 +2201,13 @@
                     if (archiveFullscreen.classList.contains('active')) {
                         archiveFullscreen.classList.remove('active');
                         document.body.style.overflow = 'auto';
+                    }
+                    if (photoFullscreen.classList.contains('active')) {
+                        photoFullscreen.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                    if (photoViewer.classList.contains('active')) {
+                        closePhotoViewer();
                     }
                     if (modal.style.display === 'flex') {
                         modal.style.display = 'none';
